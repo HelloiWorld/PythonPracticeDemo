@@ -71,7 +71,8 @@ ax2 + bx + c = 0
             x1 = (-b + math.sqrt(b * b - 4 * a * c)) / (2 * a)
             x2 = (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
             return x1, x2
-
+    
+    #测试
     print('quadratic(0, 2, 1) =', quadratic(0, 2, 1))
     print('quadratic(1, 3, -4) =', quadratic(1, 3, -4))
 
@@ -83,7 +84,8 @@ ax2 + bx + c = 0
     for number in numbers:
         product = product * number
     return product
-
+    
+    #测试
     print('product(5) =', product(5))
     print('product(5, 6) =', product(5, 6))
     print('product(5, 6, 7) =', product(5, 6, 7))
@@ -100,7 +102,8 @@ ax2 + bx + c = 0
     move(n-1,a,c,b) #将A柱的n-1个盘移到B柱
     print(a, '-->', c)
     move(n-1,b,a,c) #将过渡柱子B上n-1个圆盘B移动到目标柱子C
-
+    
+    #测试
     # 期待输出:
     # A --> C
     # A --> B
@@ -111,6 +114,55 @@ ax2 + bx + c = 0
     # A --> C
     move(3, 'A', 'B', 'C')
     
+## 高级特性
+#### 切片
+利用切片操作，实现一个trim()函数，去除字符串首尾的空格，注意不要调用str的strip()方法：
     
+    def trim(s):
+    if s == '':
+        return ''
+    head = 0
+    headStr = s[head]
+    while headStr == ' ':
+        head = head + 1
+        if head >= len(s):
+            return ''
+        headStr = s[head]
+    tail = -1
+    tailStr = s[tail]
+    while tailStr == ' ':
+        tail = tail - 1
+        tailStr = s[tail]
+    tailIndex = len(s) + tail + 1   #向右偏移一个元素，防止最后一个取不到
+    return s[head:tail]
+
+    #测试
+    print('trim(\'hello  \') =', trim('hello  '))
+    print('trim(\'  hello\') =', trim('  hello'))
+    print('trim(\'  hello  \') =', trim('  hello  '))
+    print('trim(\'  hello  world  \') =', trim('  hello  world  '))
+    print('trim(\'\') =', trim(''))
+    print('trim(\'    \') =', trim('    '))
     
+#### 迭代
+请使用迭代查找一个list中最小和最大值，并返回一个tuple：
+    
+    def findMinAndMax(L):
+    if len(L) > 0:
+        min = L[0]
+        max = L[0]
+        for v in L:
+            if v < min:
+                min = v
+            if v > max:
+                max = v
+        return min, max
+    return (None, None)
+    
+    #测试
+    print('findMinAndMax([]) =', findMinAndMax([]))
+    print('findMinAndMax([7]) =', findMinAndMax([7]))
+    print('findMinAndMax([7, 1]) =', findMinAndMax([7, 1]))
+    print('findMinAndMax([7, 1, 3, 9, 5]) =', findMinAndMax([7, 1, 3, 9, 5]))
+
 # to be continued...
