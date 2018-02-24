@@ -194,6 +194,8 @@ ax2 + bx + c = 0
         #print('befor yield: L =', L)
         L.append(0)
         #print('after yield: L =', L)
+        #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
+        #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
         L = [L[i - 1] + L[i] for i in range(len(L))]]
         #print('after triangles: L =', L)
         
