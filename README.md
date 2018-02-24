@@ -1,6 +1,5 @@
-> 本demo题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)
-
-> 学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
+> 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)</br>
+  学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
 
 ## Python基础
 #### 条件判断
@@ -134,7 +133,7 @@ ax2 + bx + c = 0
         tail = tail - 1
         tailStr = s[tail]
     tailIndex = len(s) + tail + 1   #向右偏移一个元素，防止最后一个取不到
-    return s[head:tail]
+    return s[head:tailIndex]
 
     #测试
     print('trim(\'hello  \') =', trim('hello  '))
@@ -164,5 +163,60 @@ ax2 + bx + c = 0
     print('findMinAndMax([7]) =', findMinAndMax([7]))
     print('findMinAndMax([7, 1]) =', findMinAndMax([7, 1]))
     print('findMinAndMax([7, 1, 3, 9, 5]) =', findMinAndMax([7, 1, 3, 9, 5]))
+
+#### 列表生成式
+请修改列表生成式，通过添加if语句保证列表生成式能正确地执行：
+
+    L1 = ['Hello', 'World', 18, 'Apple', None]
+    L2 = [s.lower() for s in L1 if isinstance(s, str)]
+    print('lower([\'Hello\', \'World\', 18, \'Apple\', None]) =' , L2)
+
+#### 生成器
+杨辉三角定义如下：
+
+              1
+             / \
+            1   1
+           / \ / \
+          1   2   1
+         / \ / \ / \
+        1   3   3   1
+       / \ / \ / \ / \
+      1   4   6   4   1
+     / \ / \ / \ / \ / \
+    1   5   10  10  5   1
+把每一行看做一个list，试写一个generator，不断输出下一行的list：
+    
+    def triangles():
+    L = [1]
+    while True:
+        yield L
+        #print('befor yield: L =', L)
+        L.append(0)
+        #print('after yield: L =', L)
+        L = [L[i - 1] + L[i] for i in range(len(L))]]
+        #print('after triangles: L =', L)
+        
+    #测试
+    # 期待输出:
+    # [1]
+    # [1, 1]
+    # [1, 2, 1]
+    # [1, 3, 3, 1]
+    # [1, 4, 6, 4, 1]
+    # [1, 5, 10, 10, 5, 1]
+    # [1, 6, 15, 20, 15, 6, 1]
+    # [1, 7, 21, 35, 35, 21, 7, 1]
+    # [1, 8, 28, 56, 70, 56, 28, 8, 1]
+    # [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
+    
+    n = 0
+    results = []
+    for t in triangles():
+      print(t)
+      results.append(t)
+      n = n + 1
+      if n == 10:
+          break
 
 # to be continued...
