@@ -1,5 +1,6 @@
 > 本demo题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)
 
+> 学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
 
 ## Python基础
 #### 条件判断
