@@ -25,6 +25,11 @@
        print("肥胖")
     else:
       print("严重肥胖")
+    
+-->
+    
+    bmi 26.285714
+    过重
       
 #### 循环
 请利用循环依次对list中的每个名字打印出Hello, xxx!：
@@ -32,7 +37,12 @@
     L = ['Bart', 'Lisa', 'Adam']
     for name in L:
         print("Hello, %s!" % name)
-        
+    
+-->
+
+    Hello, Bart!
+    Hello, Lisa!
+    Hello, Adam!
  
 ## 函数
 #### 调用函数
@@ -42,6 +52,11 @@
     n2 = 1000
     print("hex n1: %s" % hex(n1))
     print("hex n2: %s" % hex(n2))
+    
+-->
+
+    hex n1: 0xff
+    hex n2: 0x3e8
 
 #### 定义函数
 请定义一个函数quadratic(a, b, c)，接收3个参数，返回一元二次方程：
@@ -71,10 +86,16 @@ ax2 + bx + c = 0
             x2 = (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
             return x1, x2
     
-    #测试
+测试
+
     print('quadratic(0, 2, 1) =', quadratic(0, 2, 1))
     print('quadratic(1, 3, -4) =', quadratic(1, 3, -4))
 
+-->
+    
+    quadratic(0, 2, 1) = -0.5
+    quadratic(1, 3, -4) = (1.0, -4.0)
+    
 #### 函数的参数
 以下函数允许计算两个数的乘积，请稍加改造，变成可接收一个或多个数并计算乘积：
 
@@ -84,11 +105,19 @@ ax2 + bx + c = 0
         product = product * number
     return product
     
-    #测试
+测试
+
     print('product(5) =', product(5))
     print('product(5, 6) =', product(5, 6))
     print('product(5, 6, 7) =', product(5, 6, 7))
     print('product(5, 6, 7, 9) =', product(5, 6, 7, 9))
+
+-->
+    
+    product(5) = 5
+    product(5, 6) = 30
+    product(5, 6, 7) = 210
+    product(5, 6, 7, 9) = 1890
 
 #### 递归函数
 汉诺塔的移动可以用递归函数非常简单地实现。 
@@ -102,7 +131,8 @@ ax2 + bx + c = 0
     print(a, '-->', c)
     move(n-1,b,a,c) #将过渡柱子B上n-1个圆盘B移动到目标柱子C
     
-    #测试
+测试
+
     # 期待输出:
     # A --> C
     # A --> B
@@ -112,6 +142,16 @@ ax2 + bx + c = 0
     # B --> C
     # A --> C
     move(3, 'A', 'B', 'C')
+    
+-->
+
+    A --> C
+    A --> B
+    C --> B
+    A --> C
+    B --> A
+    B --> C
+    A --> C
     
 ## 高级特性
 #### 切片
@@ -135,13 +175,23 @@ ax2 + bx + c = 0
     tailIndex = len(s) + tail + 1   #向右偏移一个元素，防止最后一个取不到
     return s[head:tailIndex]
 
-    #测试
+测试
+
     print('trim(\'hello  \') =', trim('hello  '))
     print('trim(\'  hello\') =', trim('  hello'))
     print('trim(\'  hello  \') =', trim('  hello  '))
     print('trim(\'  hello  world  \') =', trim('  hello  world  '))
     print('trim(\'\') =', trim(''))
     print('trim(\'    \') =', trim('    '))
+
+-->
+
+    trim('hello  ') = hello
+    trim('  hello') = hello
+    trim('  hello  ') = hello
+    trim('  hello  world  ') = hello  world
+    trim('') =
+    trim('    ') =
     
 #### 迭代
 请使用迭代查找一个list中最小和最大值，并返回一个tuple：
@@ -158,11 +208,19 @@ ax2 + bx + c = 0
         return min, max
     return (None, None)
     
-    #测试
+测试
+
     print('findMinAndMax([]) =', findMinAndMax([]))
     print('findMinAndMax([7]) =', findMinAndMax([7]))
     print('findMinAndMax([7, 1]) =', findMinAndMax([7, 1]))
     print('findMinAndMax([7, 1, 3, 9, 5]) =', findMinAndMax([7, 1, 3, 9, 5]))
+
+-->
+    
+    findMinAndMax([]) = (None, None)
+    findMinAndMax([7]) = (7, 7)
+    findMinAndMax([7, 1]) = (1, 7)
+    findMinAndMax([7, 1, 3, 9, 5]) = (1, 9)
 
 #### 列表生成式
 请修改列表生成式，通过添加if语句保证列表生成式能正确地执行：
@@ -199,7 +257,8 @@ ax2 + bx + c = 0
         L = [L[i - 1] + L[i] for i in range(len(L))]]
         #print('after triangles: L =', L)
         
-    #测试
+ 测试
+ 
     # 期待输出:
     # [1]
     # [1, 1]
@@ -220,5 +279,22 @@ ax2 + bx + c = 0
       n = n + 1
       if n == 10:
           break
+    print(results)
+    
+  -->
+  
+    [1]
+    [1, 1]
+    [1, 2, 1]
+    [1, 3, 3, 1]
+    [1, 4, 6, 4, 1]
+    [1, 5, 10, 10, 5, 1]
+    [1, 6, 15, 20, 15, 6, 1]
+    [1, 7, 21, 35, 35, 21, 7, 1]
+    [1, 8, 28, 56, 70, 56, 28, 8, 1]
+    [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
+    [[1, 0], [1, 1, 0], [1, 2, 1, 0], [1, 3, 3, 1, 0], [1, 4, 6, 4, 1, 0], [1, 5, 10, 10, 5, 1, 0], [1, 6, 15, 20, 15, 6, 1,  0], [1, 7, 21, 35, 35, 21, 7, 1, 0], [1, 8, 28, 56, 70, 56, 28, 8, 1, 0], [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]]
+    
+> 思考：为什么t的打印结果与append到results后显示结果不同?
 
 # to be continued...
