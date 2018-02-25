@@ -2,6 +2,13 @@
   学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
 
 ## Python基础
+#### 字符串和编码
+小明的成绩从去年的72分提升到了今年的85分，请计算小明成绩提升的百分点，并用字符串格式化显示出'xx.x%'，只保留小数点后1位：
+s1 = 72
+s2 = 85
+r = 100 * (s2 - s1) / s1
+print('%.1f%%' % r)
+
 #### 条件判断
 小明身高1.75，体重80.5kg。请根据BMI公式（体重除以身高的平方）帮小明计算他的BMI指数，并根据BMI指数：
 低于18.5：过轻
@@ -61,14 +68,14 @@
 #### 定义函数
 请定义一个函数quadratic(a, b, c)，接收3个参数，返回一元二次方程：
 ax2 + bx + c = 0
-的两个解。
-提示：计算平方根可以调用math.sqrt()函数：    
+的两个解。</br>
+提示：计算平方根可以调用`math.sqrt()`函数：    
     
     import math
 
     def quadratic(a, b, c):
-        if not isinstance(a, int) or not isinstance(b, int) or not isinstance(c, int):
-           raise TypeError('bad operand type')
+        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(c, (int, float)):
+            raise TypeError('bad operand type')
         if b == 0:
             if a * c < 0:
                 x1 = math.sqrt(-(a / c))
@@ -77,23 +84,30 @@ ax2 + bx + c = 0
             elif c == 0:
                 return 0
             else:
-                raise TypeError('no answer')
+                raise ValueError('no answer')
         elif a == 0:
             x = -(c / b)
             return x
         else:
-            x1 = (-b + math.sqrt(b * b - 4 * a * c)) / (2 * a)
-            x2 = (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
-            return x1, x2
+            if b * b - 4 * a * c < 0:
+                return ValueError('no answer')
+            else:
+                x1 = (-b + math.sqrt(b * b - 4 * a * c)) / (2 * a)
+                x2 = (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
+                return x1, x2
     
-测试
-
+测试：
+    
+    print('quadratic(1.5, 3, 1) =', quadratic(1.5, 3, 1))
     print('quadratic(0, 2, 1) =', quadratic(0, 2, 1))
+    print('quadratic(1, 2, 2) =', quadratic(1, 2, 2))
     print('quadratic(1, 3, -4) =', quadratic(1, 3, -4))
 
 -->
     
+    quadratic(1.5, 3, 1) = (-0.42264973081037427, -1.5773502691896255)
     quadratic(0, 2, 1) = -0.5
+    quadratic(1, 2, 2) = no answer
     quadratic(1, 3, -4) = (1.0, -4.0)
     
 #### 函数的参数
@@ -105,7 +119,7 @@ ax2 + bx + c = 0
         product = product * number
     return product
     
-测试
+测试：
 
     print('product(5) =', product(5))
     print('product(5, 6) =', product(5, 6))
@@ -131,7 +145,7 @@ ax2 + bx + c = 0
     print(a, '-->', c)
     move(n-1,b,a,c) #将过渡柱子B上n-1个圆盘B移动到目标柱子C
     
-测试
+测试：
 
     # 期待输出:
     # A --> C
@@ -158,24 +172,25 @@ ax2 + bx + c = 0
 利用切片操作，实现一个trim()函数，去除字符串首尾的空格，注意不要调用str的strip()方法：
     
     def trim(s):
-    if s == '':
-        return ''
-    head = 0
-    headStr = s[head]
-    while headStr == ' ':
-        head = head + 1
-        if head >= len(s):
-            return ''
-        headStr = s[head]
-    tail = -1
-    tailStr = s[tail]
-    while tailStr == ' ':
-        tail = tail - 1
-        tailStr = s[tail]
-    tailIndex = len(s) + tail + 1   #向右偏移一个元素，防止最后一个取不到
-    return s[head:tailIndex]
-
-测试
+        if s == '':
+            return s
+        while s != '' and s[0] == ' ':
+            s = s[1:]
+        while s != '' and s[-1] == ' ':
+            s = s[:-1]
+        return s
+    
+    #利用递归思路的写法
+    def trim2(s):
+        if s == '':
+            return s
+        if s[0] == ' ':
+            return trim2(s[1:])
+        if s[-1] == ' ':
+            return trim2(s[:-1])
+        return s
+    
+测试：
 
     print('trim(\'hello  \') =', trim('hello  '))
     print('trim(\'  hello\') =', trim('  hello'))
@@ -208,7 +223,7 @@ ax2 + bx + c = 0
         return min, max
     return (None, None)
     
-测试
+测试：
 
     print('findMinAndMax([]) =', findMinAndMax([]))
     print('findMinAndMax([7]) =', findMinAndMax([7]))
@@ -223,7 +238,7 @@ ax2 + bx + c = 0
     findMinAndMax([7, 1, 3, 9, 5]) = (1, 9)
 
 #### 列表生成式
-请修改列表生成式，通过添加if语句保证列表生成式能正确地执行：
+使用列表生成式将英文字母全部转换为小写，通过添加if语句保证列表生成式能正确地执行：
 
     L1 = ['Hello', 'World', 18, 'Apple', None]
     L2 = [s.lower() for s in L1 if isinstance(s, str)]
@@ -258,8 +273,18 @@ ax2 + bx + c = 0
         #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
         L = [L[i - 1] + L[i] for i in range(len(L))]]
         #print('after triangles: L =', L)
+        
+    #不使用列表生成式的写法:
+    #def triangles():
+    #    ret = [1]
+    #    while True:
+    #        yield ret
+    #        for i in range(1, len(ret)):
+    #            ret[i] = pre[i] + pre[i - 1]
+    #        ret.append(1)
+    #        pre = ret[:]
 
- 测试
+ 测试：
  
     # 期待输出:
     # [1]
@@ -299,4 +324,68 @@ ax2 + bx + c = 0
     
 > 思考：为什么t的打印结果与append到results后显示结果不同?
 
-# to be continued...
+## 函数式编程
+#### 高阶函数
+##### map/reduce
+> map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</br>
+  reduce把一个函数作用在一个序列[x1, x2, x3, ...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：
+  `reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)`
+
+利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：['adam', 'LISA', 'barT']，输出：['Adam', 'Lisa', 'Bart']：
+> `lower()`、`upper()`、`capitalize()`、`title()`、`swapcase()`这几个方法分别用来将字符串转换为小写、大写字符串、将字符串首字母变为大写、将每个首字母变为大写以及大小写互换，这几个方法都是生成新字符串，并不对原字符串做任何修改</br>
+  `replace()`用来替换字符串中指定字符或子字符串的所有重复出现，每次只能替换一个字符或字符串。该方法并不修改原字符串，而是返回一个新字符串。
+    
+    def normalize(name):
+        return name.title()
+
+测试：
+
+    L1 = ['adam', 'LISA', 'barT']
+    L2 = list(map(normalize, L1))
+    print(L2)
+    
+-->  
+
+    ['Adam', 'Lisa', 'Bart']
+    
+    
+Python提供的sum()函数可以接受一个list并求和，请编写一个prod()函数，可以接受一个list并利用reduce()求积：
+
+    from functools import reduce
+    def prod(L):
+        def fn(x, y):
+            return x * y
+        return reduce(fn, L)
+    #    return reduce(lambda x, y: x * y, L)
+    
+测试：
+
+    print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9])) 
+    
+-->
+
+    3 * 5 * 7 * 9 = 945
+    
+利用map和reduce编写一个str2float函数，把字符串'123.456'转换成浮点数123.456：
+
+    from functools import reduce
+    def str2float(s):
+        dot = s.find('.')
+        def fn(x, y):
+            return x * 10 + y
+        def fd(x):
+            return x / 10**(len(s)-dot-1)
+        if dot == -1:
+            return reduce(fn, map(int, s)) 
+        return reduce(fn, map(int, s[:dot])) + fd(reduce(fn, map(int, s[dot+1:])))
+
+测试：
+
+    print('str2float(\'123.456\') =', str2float('123.456'))
+    
+-->
+
+    str2float('123.456') = 123.456
+    
+    
+### to be continued...
