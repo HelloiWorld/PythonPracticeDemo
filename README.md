@@ -230,6 +230,8 @@ ax2 + bx + c = 0
     print('lower([\'Hello\', \'World\', 18, \'Apple\', None]) =' , L2)
 
 #### 生成器
+> 包含`yield`关键字的函数表明是一个generator，在调用`next()`时遇到`yield`会中断，在下次运行时再从上次返回的`yield`处继续执行
+
 杨辉三角定义如下：
 
               1
@@ -249,14 +251,14 @@ ax2 + bx + c = 0
     L = [1]
     while True:
         yield L
-        #print('befor yield: L =', L)
+        #print('previous yield: L =', L)
         L.append(0)
-        #print('after yield: L =', L)
+        #print('after append(0): L =', L)
         #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
         #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
         L = [L[i - 1] + L[i] for i in range(len(L))]]
         #print('after triangles: L =', L)
-        
+
  测试
  
     # 期待输出:
@@ -279,7 +281,7 @@ ax2 + bx + c = 0
       n = n + 1
       if n == 10:
           break
-    print(results)
+    print('results =', results)
     
   -->
   
@@ -293,7 +295,7 @@ ax2 + bx + c = 0
     [1, 7, 21, 35, 35, 21, 7, 1]
     [1, 8, 28, 56, 70, 56, 28, 8, 1]
     [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
-    [[1, 0], [1, 1, 0], [1, 2, 1, 0], [1, 3, 3, 1, 0], [1, 4, 6, 4, 1, 0], [1, 5, 10, 10, 5, 1, 0], [1, 6, 15, 20, 15, 6, 1,  0], [1, 7, 21, 35, 35, 21, 7, 1, 0], [1, 8, 28, 56, 70, 56, 28, 8, 1, 0], [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]]
+    results = [[1, 0], [1, 1, 0], [1, 2, 1, 0], [1, 3, 3, 1, 0], [1, 4, 6, 4, 1, 0], [1, 5, 10, 10, 5, 1, 0], [1, 6, 15, 20, 15, 6, 1,  0], [1, 7, 21, 35, 35, 21, 7, 1, 0], [1, 8, 28, 56, 70, 56, 28, 8, 1, 0], [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]]
     
 > 思考：为什么t的打印结果与append到results后显示结果不同?
 
