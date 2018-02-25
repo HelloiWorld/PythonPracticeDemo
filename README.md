@@ -263,16 +263,16 @@ ax2 + bx + c = 0
 把每一行看做一个list，试写一个generator，不断输出下一行的list：
     
     def triangles():
-    L = [1]
-    while True:
-        yield L
-        #print('previous yield: L =', L)
-        L.append(0)
-        #print('after append(0): L =', L)
-        #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
-        #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
-        L = [L[i - 1] + L[i] for i in range(len(L))]]
-        #print('after triangles: L =', L)
+        L = [1]
+        while True:
+            yield L
+            #print('previous yield: L =', L)
+            L.append(0)
+            #print('after append(0): L =', L)
+            #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
+            #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
+            L = [L[i - 1] + L[i] for i in range(len(L))]]
+            #print('after triangles: L =', L)
         
     #不使用列表生成式的写法:
     #def triangles():
@@ -376,8 +376,8 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
         def fd(x):
             return x / 10**(len(s)-dot-1)
         if dot == -1:
-            return reduce(fn, map(int, s)) 
-        return reduce(fn, map(int, s[:dot])) + fd(reduce(fn, map(int, s[dot+1:])))
+            return reduce(fn, map(int, s))
+        return reduce(fn, map(int, s[:dot])) + fd(reduce(fn, map(int, s[dot+1:])))
 
 测试：
 
