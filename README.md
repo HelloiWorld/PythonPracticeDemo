@@ -479,5 +479,59 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     counterB:  1 2 3 4 5
     counterC:  1 2 3 4 5
 
+#### 匿名函数
+请用匿名函数改造下面的代码：
 
+    def is_odd(n):
+        return n % 2 == 1
+    L = list(filter(is_odd, range(1, 20)))
+    
+
+    L = list(filter(lambda x: x % 2 == 1, range(1, 20)))
+    print(L)
+
+-->
+
+    [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+    
+#### 装饰器
+请设计一个decorator，它可作用于任何函数上，并打印该函数的执行时间：
+
+    import time, functools
+
+    def metric(fn):
+        @functools.wraps(fn)
+        def wrapper(*args, **kw):
+            start_time = time.time()
+            fn(*args, **kw)
+            end_time = time.time()
+            runtime = end_time - start_time
+            print('%s executed in %s ms' % (fn.__name__, runtime * 1000))
+            return fn(*args, **kw)
+        return wrapper
+        
+测试：
+    
+    @metric
+    def fast(x, y):
+        time.sleep(0.0012)
+        return x + y;
+
+    @metric
+    def slow(x, y, z):
+        time.sleep(0.1234)
+        return x * y * z;
+
+    f = fast(11, 22)
+    s = slow(11, 22, 33)
+    print('f =', f)
+    print('s =', s)
+    
+-->
+
+    fast executed in 1.5931129455566406 ms
+    slow executed in 123.92115592956543 ms
+    f = 33
+    s = 7986
+    
 ### to be continued...
