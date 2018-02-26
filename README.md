@@ -1,8 +1,36 @@
 > 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)</br>
   学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
 
-## Python基础
-#### 字符串和编码
+# 目录
+* [Python基础](#Python基础)
+  - [字符串和编码](#字符串和编码)
+  - [条件判断](#条件判断)
+  - [循环](#循环)
+* [函数](#函数)
+  - [调用函数](#调用函数)
+  - [定义函数](#定义函数)
+  - [函数的参数](#函数的参数)
+  - [递归函数](#递归函数)
+* [高级特性](#高级特性)
+  - [切片](#切片)
+  - [迭代](#迭代)
+  - [列表生成式](#列表生成式)
+  - [生成器](#生成器)
+* [函数式编程](#函数式编程)
+  - [高阶函数](#高阶函数)
+    - [map/reduce](#mapreduce)
+    - [filter](#filter)
+    - [sorted](#sorted)
+  - [返回函数](#返回函数)
+  - [匿名函数](#匿名函数)
+  - [装饰器](#装饰器)
+* [面向对象编程](#面向对象编程)
+  - [访问限制](#访问限制)
+  - [实例属性和类属性](#实例属性和类属性)
+
+<h2 id="Python基础">Python基础</h2>
+<h4 id="字符串和编码">字符串和编码</h4>
+
 小明的成绩从去年的72分提升到了今年的85分，请计算小明成绩提升的百分点，并用字符串格式化显示出'xx.x%'，只保留小数点后1位：
 
     s1 = 72
@@ -10,7 +38,8 @@
     r = 100 * (s2 - s1) / s1
     print('%.1f%%' % r)
 
-#### 条件判断
+<h4 id="条件判断">条件判断</h4>
+
 小明身高1.75，体重80.5kg。请根据BMI公式（体重除以身高的平方）帮小明计算他的BMI指数，并根据BMI指数：
 低于18.5：过轻
 18.5-25：正常
@@ -52,8 +81,9 @@
     Hello, Lisa!
     Hello, Adam!
  
-## 函数
-#### 调用函数
+<h2 id="函数">函数</h2>
+<h4 id="调用函数">调用函数</h4>
+
 请利用Python内置的hex()函数把一个整数转换成十六进制表示的字符串：
 
     n1 = 255
@@ -66,7 +96,8 @@
     hex n1: 0xff
     hex n2: 0x3e8
 
-#### 定义函数
+<h4 id="定义函数">定义函数</h4>
+
 请定义一个函数quadratic(a, b, c)，接收3个参数，返回一元二次方程：
 ax2 + bx + c = 0
 的两个解。</br>
@@ -111,7 +142,7 @@ ax2 + bx + c = 0
     quadratic(1, 2, 2) = no answer
     quadratic(1, 3, -4) = (1.0, -4.0)
     
-#### 函数的参数
+<h4 id="函数的参数">函数的参数</h4>
 以下函数允许计算两个数的乘积，请稍加改造，变成可接收一个或多个数并计算乘积：
 
     def product(*numbers):
@@ -534,5 +565,68 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     slow executed in 123.92115592956543 ms
     f = 33
     s = 7986
+
+## 面向对象编程
+#### 访问限制
+请把下面的Student对象的gender字段对外隐藏起来，用get_gender()和set_gender()代替，并检查参数有效性：
+
+    class Student(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.gender = gender
+        
+修改后：
+    
+    class Student(object):
+    def __init__(self, name, gender):
+        self.name = name
+        self.__gender = gender
+
+    def get_gender(self):
+        return self.__gender
+
+    def set_gender(self, gender):
+        if gender == 'male' or gender == 'female':
+        #if gender in ('male','female'):
+            self.__gender = gender
+        else:
+            raise ValueError('bad gender')
+            
+测试：
+
+    bart = Student('Bart', 'male')
+    print('bart.get_gender() =', bart.get_gender())
+    bart.set_gender('female')
+    print('after bart.set_gender(\'female\'), bart.get_gender() =', bart.get_gender())
+    
+-->
+
+    bart.get_gender() = male
+    after bart.set_gender('female'), bart.get_gender() = female
+
+#### 实例属性和类属性
+为了统计学生人数，可以给Student类增加一个类属性，每创建一个实例，该属性自动增加：
+
+    class Student(object):
+    count = 0 #这里是类变量，是静态变量(只初始化一次，然后存在内存中便于修改访问)，类似于oc中的static关键字
+    
+    def __init__(self, name):
+        self.name = name
+        Student.count += 1 #修改时必须修改类属性
+        
+测试：
+    
+    print('Student.count =', Student.count)
+    bart = Student('Bart')
+    print('Student.count =', Student.count)
+    lisa = Student('Bart')
+    print('Student.count =', Student.count)
+    
+-->
+
+    Student.count = 0
+    Student.count = 1
+    Student.count = 2        
+    
     
 ### to be continued...
