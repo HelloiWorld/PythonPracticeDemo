@@ -73,7 +73,7 @@ ax2 + bx + c = 0
 提示：计算平方根可以调用`math.sqrt()`函数：    
     
     import math
-
+    
     def quadratic(a, b, c):
         if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(c, (int, float)):
             raise TypeError('bad operand type')
@@ -276,14 +276,14 @@ ax2 + bx + c = 0
             #print('after triangles: L =', L)
         
     #不使用列表生成式的写法:
-    #def triangles():
-    #    ret = [1]
-    #    while True:
-    #        yield ret
-    #        for i in range(1, len(ret)):
-    #            ret[i] = pre[i] + pre[i - 1]
-    #        ret.append(1)
-    #        pre = ret[:]
+    def triangles2():
+        ret = [1]
+        while True:
+            yield ret
+            for i in range(1, len(ret)):
+                ret[i] = pre[i] + pre[i - 1]
+            ret.append(1)
+            pre = ret[:]
 
  测试：
  
@@ -406,8 +406,8 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
     1~1000: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 111, 121, 131, 141, 151, 161, 171, 181, 191, 202, 212, 222, 232, 242, 252, 262, 272, 282, 292, 303, 313, 323, 333, 343, 353, 363, 373, 383, 393, 404, 414, 424, 434, 444, 454, 464, 474, 484, 494, 505, 515, 525, 535, 545, 555, 565, 575, 585, 595, 606, 616, 626, 636, 646, 656, 666, 676, 686, 696, 707, 717, 727, 737, 747, 757, 767, 777, 787, 797, 808, 818, 828, 838, 848, 858, 868, 878, 888, 898, 909, 919, 929, 939, 949, 959, 969, 979, 989, 999]
     
 #### sorted
-假设我们用一组tuple表示学生名字和成绩：</br>
-L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]</br>
+假设我们用一组tuple表示学生名字和成绩：
+L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 请用sorted()对上述列表分别按名字排序：
 
     L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
@@ -427,6 +427,57 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]</br>
     
     按名字排序: [('Adam', 92), ('Bart', 66), ('Bob', 75), ('Lisa', 88)]
     按成绩排序: [('Bart', 66), ('Bob', 75), ('Lisa', 88), ('Adam', 92)]
+
+#### 返回函数
+利用闭包返回一个计数器函数，每次调用它返回递增整数：
     
+    #使用生成器迭代
+    def createCounter():
+        def g():
+            n = 1
+            while True:
+                yield n
+                n = n + 1
+        it = g()
+        def counter():
+            return next(it)
+        return counter
+
+    ##python引用变量的顺序： 当前作用域局部变量->外层作用域变量->当前模块中的全局变量->python内置变量
+    ##内层函数能访问外层函数的变量，但不能修改它的指向
+    def createCounter2():
+        count = [0]
+        def counter():
+            count[0] += 1   #用list存储，这样地址不变就可以修改其内容了
+            return count[0]
+        return counter
+
+    ##nonlocal关键字用来在函数或其他作用域中修改外层(非全局)变量
+    ##global关键字则是用于修改全局变量
+    def createCounter3():
+        count = 0
+        def counter():
+            nonlocal count  #允许修改外部变量，在我的理解相当于__block关键字
+            count += 1
+            return count
+        return counter
+
+测试：
+
+    counterA = createCounter()
+    print('counterA: ', counterA(), counterA(), counterA(), counterA(), counterA())
+
+    counterB = createCounter2()
+    print('counterB: ', counterB(), counterB(), counterB(), counterB(), counterB())
+
+    counterC = createCounter3()
+    print('counterC: ', counterC(), counterC(), counterC(), counterC(), counterC())
+    
+-->
+    
+    counterA:  1 2 3 4 5
+    counterB:  1 2 3 4 5
+    counterC:  1 2 3 4 5
+
 
 ### to be continued...
