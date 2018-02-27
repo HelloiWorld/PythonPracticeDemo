@@ -27,7 +27,9 @@
 * [面向对象编程](#面向对象编程)
   - [访问限制](#访问限制)
   - [实例属性和类属性](#实例属性和类属性)
-
+* [面向对象高级编程](#面向对象高级编程)
+  - [使用@property](#使用@property)
+  
 <h2 id="Python基础">Python基础</h2>
 
 #### 字符串和编码
@@ -625,6 +627,95 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     Student.count = 0
     Student.count = 1
     Student.count = 2        
+
+## 面向对象高级编程
+#### 使用@property
+请利用@property给一个Screen对象加上width和height属性，以及一个只读属性resolution：
+    
+    class Screen(object):
+    @property
+    def width(self):
+        return self._width
+
+    @width.setter
+    def width(self, value):
+        self._width = value
+
+    @property
+    def height(self):
+        return self._height
     
+    @height.setter
+    def height(self, value):
+        self._height = value
+
+    @property
+    def resolution(self):
+        return self._width * self._height
+ 
+ 测试：
     
+    s = Screen()
+    s.width = 1024
+    s.height = 768
+    print('resolution =', s.resolution)
+
+-->
+    
+    resolution = 786432
+
+#### 使用枚举类
+把Student的gender属性改造为枚举类型，可以避免使用字符串：
+
+    from enum import Enum, unique
+    
+    class Gender(Enum):
+    Male = 0
+    Female = 1
+
+    class Student(object):
+        def __init__(self, name, gender):
+            self.name = name
+            self.gender = gender
+
+改造后，只允许通过枚举类设置gender
+    
+    @unique
+    class Gender(Enum):
+        Male = 'male'   #并不一定非要用数字
+        Female = 'female'
+
+    class Student(object):
+        def __init__(self, name, gender):
+            self.name = name
+            self.gender = gender
+
+    @property
+    def gender(self):
+        return self._gender
+
+    @gender.setter
+    def gender(self, value):
+        if isinstance(value, Gender):
+            self._gender = value
+        else:
+            raise TypeError('bad type gender')
+
+测试：
+    
+    bart = Student('Bart', Gender.Male)
+    print('bart.gender =', bart.gender)
+    print('bart.gender.value =', bart.gender.value)
+    
+    bart2 = Student('Bart2', 'Gender.Male')
+    
+-->
+    
+    bart.gender = Gender.Male
+    bart.gender.value = male
+    
+    Traceback (most recent call last):
+    ...
+    TypeError: bad type gender
+
 ### to be continued...
