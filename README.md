@@ -436,7 +436,8 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
 #### sorted
 假设我们用一组tuple表示学生名字和成绩：
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
-请用sorted()对上述列表分别按名字排序：
+请用sorted()对上述列表分别按名字排序：</br>
+再按成绩从高到低排序：
 
     L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     def by_name(t):
@@ -448,13 +449,13 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 
     L2 = sorted(L, key=by_name)
     print('按名字排序:', L2)
-    L3 = sorted(L, key=by_score) #reverse=True
-    print('按成绩排序:', L3)
+    L3 = sorted(L, key=by_score, reverse=True)
+    print('按成绩从高到低排序:', L3)
 
 -->
     
     按名字排序: [('Adam', 92), ('Bart', 66), ('Bob', 75), ('Lisa', 88)]
-    按成绩排序: [('Bart', 66), ('Bob', 75), ('Lisa', 88), ('Adam', 92)]
+    按成绩从高到低排序: [('Adam', 92), ('Lisa', 88), ('Bob', 75), ('Bart', 66)]
 
 #### 返回函数
 利用闭包返回一个计数器函数，每次调用它返回递增整数：
