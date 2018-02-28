@@ -30,6 +30,10 @@
 * [面向对象高级编程](#面向对象高级编程)
   - [使用@property](#使用property)
   - [使用枚举类](#使用枚举类)
+* [错误调试和测试](#错误调试和测试)
+  - [错误处理](#错误处理)
+  - [单元测试](#单元测试)
+  - [文档测试](#文档测试)
   
 <h2 id="Python基础">Python基础</h2>
 
@@ -718,5 +722,180 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     Traceback (most recent call last):
     ...
     TypeError: bad type gender
+
+## 错误调试和测试
+#### 错误处理
+运行下面的代码，根据异常信息进行分析，定位出错误源头，并修复：
+    
+    from functools import reduce
+
+    def str2num(s):
+        return int(s)
+
+    def calc(exp):
+        ss = exp.split('+')
+        ns = map(str2num, ss)
+        return reduce(lambda acc, x: acc + x, ns)
+
+    def main():
+        r = calc('100 + 200 + 345')
+        print('100 + 200 + 345 =', r)
+        r = calc('99 + 88 + 7.6')
+        print('99 + 88 + 7.6 =', r)
+
+    main()
+ 
+ 错误：
+ 
+      File "test7_错误调试和测试_错误处理.py", line 10, in str2num
+        return int(s)
+    ValueError: invalid literal for int() with base 10: ' 7.6'
+    
+ 说明是将7.6转成int类型出错，修改`str2num():`方法即可
+ 
+    def str2num(s):
+    try:
+        return int(s)
+    except ValueError as e:
+        try:
+            return float(s)
+        except:
+            raise ValueError('not a number')
+ 
+#### 单元测试
+对Student类编写单元测试，结果发现测试不通过，请修改Student类，让测试通过：
+
+    import unittest
+
+    class Student(object):
+        def __init__(self, name, score):
+            self.name = name
+            self.score = score
+        def get_grade(self):
+            if self.score >= 60:
+                return 'B'
+            if self.score >= 80:
+                return 'A'
+            return 'C'
+
+修改后：
+
+    class Student(object):
+        def __init__(self, name, score):
+            self.name = name
+            self.score = score
+        def get_grade(self):
+            if self.score < 0 or self.score > 100:
+                raise ValueError('bad value of score')
+        
+            if self.score >= 80:
+                return 'A'
+            elif self.score >= 60:
+                return 'B'
+            else:
+                return 'C'
+
+测试：
+
+    class TestStudent(unittest.TestCase):
+    
+    def test_80_to_100(self):
+        s1 = Student('Bart', 80)
+        s2 = Student('Lisa', 100)
+        self.assertEqual(s1.get_grade(), 'A')
+        self.assertEqual(s2.get_grade(), 'A')
+    
+    def test_60_to_80(self):
+        s1 = Student('Bart', 60)
+        s2 = Student('Lisa', 79)
+        self.assertEqual(s1.get_grade(), 'B')
+        self.assertEqual(s2.get_grade(), 'B')
+    
+    def test_0_to_60(self):
+        s1 = Student('Bart', 0)
+        s2 = Student('Lisa', 59)
+        self.assertEqual(s1.get_grade(), 'C')
+        self.assertEqual(s2.get_grade(), 'C')
+    
+    def test_invalid(self):
+        s1 = Student('Bart', -1)
+        s2 = Student('Lisa', 101)
+        with self.assertRaises(ValueError):
+            s1.get_grade()
+        with self.assertRaises(ValueError):
+            s2.get_grade()
+
+    if __name__ == '__main__':
+        unittest.main()
+        
+-->
+
+    ....
+    ----------------------------------------------------------------------
+    Ran 4 tests in 0.000s
+
+    OK
+
+#### 文档测试
+对函数fact(n)编写doctest并执行：
+
+    def fact(n):
+    '''
+    Calculate 1*2*...*n
+        
+    >>> fact(1)
+    1
+    >>> fact(10)
+    3628800
+    >>> fact(-1)
+    Traceback (most recent call last):
+        ...
+    ValueError
+    '''
+    if n < 1:
+        raise ValueError()
+    if n == 1:
+        return 1
+    return n * fact(n - 1)
+    
+    if __name__ == '__main__':
+        import doctest
+        doctest.testmod()
+        
+测试：将
+    
+    if n < 1:   
+        raise ValueError()
+       
+注释，打印结果如下：
+
+    **********************************************************************
+    File "test7_错误调试和测试_文档测试.py", line 15, in __main__.fact
+    Failed example:
+        fact(-1)
+    Expected:
+        Traceback (most recent call last):
+            ...
+        ValueError
+    Got:
+        Traceback (most recent call last):
+        File "/usr/local/Cellar/python3/3.6.4_2/Frameworks/Python.framework/Versions/3.6/lib/python3.6/doctest.py", line 1330, in __run
+            compileflags, 1), test.globs)
+        File "<doctest __main__.fact[2]>", line 1, in <module>
+            fact(-1)
+        File "test7_错误调试和测试_文档测试.py", line 24, in fact
+            return n * fact(n - 1)
+        File "test7_错误调试和测试_文档测试.py", line 24, in fact
+            return n * fact(n - 1)
+        File "test7_错误调试和测试_文档测试.py", line 24, in fact
+            return n * fact(n - 1)
+        [Previous line repeated 990 more times]
+        File "test7_错误调试和测试_文档测试.py", line 22, in fact
+            if n == 1:
+        RecursionError: maximum recursion depth exceeded in comparison
+    **********************************************************************
+    1 items had failures:
+        1 of   3 in __main__.fact
+    ***Test Failed*** 1 failures.
 
 ### to be continued...
