@@ -546,7 +546,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             print('%s executed in %s ms' % (fn.__name__, runtime * 1000))
             return fn(*args, **kw)
         return wrapper
-        
+    
 测试：
     
     @metric
@@ -579,7 +579,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     def __init__(self, name, gender):
         self.name = name
         self.gender = gender
-        
+    
 修改后：
     
     class Student(object):
@@ -596,7 +596,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             self.__gender = gender
         else:
             raise ValueError('bad gender')
-            
+    
 测试：
 
     bart = Student('Bart', 'male')
@@ -618,7 +618,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     def __init__(self, name):
         self.name = name
         Student.count += 1 #修改时必须修改类属性
-        
+    
 测试：
     
     print('Student.count =', Student.count)
@@ -779,15 +779,15 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             return 'C'
 
 修改后：
-
+    
     class Student(object):
-        def __init__(self, name, score):
+        def __init__(self, name, score):
             self.name = name
             self.score = score
         def get_grade(self):
             if self.score < 0 or self.score > 100:
                 raise ValueError('bad value of score')
-        
+
             if self.score >= 80:
                 return 'A'
             elif self.score >= 60:
@@ -861,12 +861,12 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     if __name__ == '__main__':
         import doctest
         doctest.testmod()
-        
+
 测试：将
     
     if n < 1:   
         raise ValueError()
-       
+
 注释，打印结果如下：
 
     **********************************************************************
