@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#错误调试和测试->文档测试
-#练习
-#对函数fact(n)编写doctest并执行：
+# 错误调试和测试->文档测试
+# 练习
+# 对函数fact(n)编写doctest并执行：
 def fact(n):
     '''
     Calculate 1*2*...*n
@@ -17,8 +17,8 @@ def fact(n):
         ...
     ValueError
     '''
-#    if n < 1:
-#        raise ValueError()
+    if n < 1:
+       raise ValueError()
     if n == 1:
         return 1
     return n * fact(n - 1)

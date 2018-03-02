@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#错误调试和测试->单元测试
-#练习
-#对Student类编写单元测试，结果发现测试不通过，请修改Student类，让测试通过：
+# 错误调试和测试->单元测试
+# 练习
+# 对Student类编写单元测试，结果发现测试不通过，请修改Student类，让测试通过：
 import unittest
 
 #class Student(object):
@@ -17,7 +17,7 @@ import unittest
 #            return 'A'
 #        return 'C'
 
-#修改后
+# 修改后
 class Student(object):
     def __init__(self, name, score):
         self.name = name
@@ -33,9 +33,8 @@ class Student(object):
         else:
             return 'C'
 
-#测试
+# 测试
 class TestStudent(unittest.TestCase):
-    
     def test_80_to_100(self):
         s1 = Student('Bart', 80)
         s2 = Student('Lisa', 100)

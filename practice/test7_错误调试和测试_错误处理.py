@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#错误调试和测试->错误处理
-#练习
-#运行下面的代码，根据异常信息进行分析，定位出错误源头，并修复：
+# 错误调试和测试->错误处理
+# 练习
+# 运行下面的代码，根据异常信息进行分析，定位出错误源头，并修复：
 from functools import reduce
 
 def str2num(s):

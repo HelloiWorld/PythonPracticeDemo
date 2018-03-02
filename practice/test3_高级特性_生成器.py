@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-#高级特性->列表生成式
-#练习
-#使用列表生成式将英文字母全部转换为小写，通过添加if语句保证列表生成式能正确地执行：
+# 高级特性->列表生成式
+# 练习
+# 使用列表生成式将英文字母全部转换为小写，通过添加if语句保证列表生成式能正确地执行：
 L1 = ['Hello', 'World', 18, 'Apple', None]
 L2 = [s.lower() for s in L1 if isinstance(s, str)]
 print('lower([\'Hello\', \'World\', 18, \'Apple\', None]) =' , L2)
 
 
-#高级特性->生成器
-#练习
-#杨辉三角定义如下：
+# 高级特性->生成器
+# 练习
+# 杨辉三角定义如下：
 #          1
 #         / \
 #        1   1
@@ -22,7 +22,7 @@ print('lower([\'Hello\', \'World\', 18, \'Apple\', None]) =' , L2)
 #  1   4   6   4   1
 # / \ / \ / \ / \ / \
 #1   5   10  10  5   1
-#把每一行看做一个list，试写一个generator，不断输出下一行的list：
+# 把每一行看做一个list，试写一个generator，不断输出下一行的list：
 def triangles():
     L = [1]
     while True:
@@ -35,7 +35,7 @@ def triangles():
         L = [L[i - 1] + L[i] for i in range(len(L))]
         #print('L = L[i-1] + L[i] = ', L)
 
-#不使用列表生成式的写法:
+# 不使用列表生成式的写法:
 def triangles2():
     ret = [1]
     while True:
@@ -45,7 +45,7 @@ def triangles2():
         ret.append(1)
         pre = ret[:]
 
-#测试
+# 测试
 # 期待输出:
 # [1]
 # [1, 1]

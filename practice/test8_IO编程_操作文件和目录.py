@@ -16,6 +16,7 @@ def output_dir_detail(pwd = os.path.abspath('.')):
         flag = '/' if os.path.isdir(i) else ''
         print('%10d   %s   %s%s' % (fsize, fmtime, fname, flag))
 
+# 测试
 output_dir_detail()
 
 

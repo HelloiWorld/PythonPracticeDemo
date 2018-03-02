@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-#函数式编程->装饰器
-#练习
-#请设计一个decorator，它可作用于任何函数上，并打印该函数的执行时间：
+# 函数式编程->装饰器
+# 练习
+# 请设计一个decorator，它可作用于任何函数上，并打印该函数的执行时间：
 import time, functools
 
 def metric(fn):
@@ -16,7 +16,7 @@ def metric(fn):
         return fn(*args, **kw)
     return wrapper
 
-#测试
+# 测试
 @metric
 def fast(x, y):
     time.sleep(0.0012)

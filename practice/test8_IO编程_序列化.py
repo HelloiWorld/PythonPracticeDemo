@@ -10,13 +10,13 @@ obj = dict(name='小明', age=20)
 s = json.dumps(obj, ensure_ascii=True)  #默认，中文会转成Unicode编码
 s2 = json.dumps(obj, ensure_ascii=False)
 
+# 测试
 print('s = %s' % s)
 print('s2 = %s' % s2)
 
 
 
 # 一个通用Json转Model的例子
-
 def jsonToClass(class_name, json_str):
     # <class '__main__.Student'> 其实就是根据一个示例找到它的类，然后截取出类名而已
     class_name_str = str(type(class_name))[str(type(class_name)).find('.') + 1:-2]
@@ -28,5 +28,6 @@ def jsonToClass(class_name, json_str):
 class Student(object):
     pass
 
+# 测试
 s = jsonToClass(Student(),'{"name":"123","age":16}')
 print(s)
