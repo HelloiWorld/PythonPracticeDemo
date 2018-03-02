@@ -496,7 +496,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             count += 1
             return count
         return counter
-
+    
     # 测试
     counterA = createCounter()
     print('counterA: ', counterA(), counterA(), counterA(), counterA(), counterA())
@@ -545,7 +545,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             return fn(*args, **kw)
         return wrapper
     
-    # 测试
+    # 测试
     @metric
     def fast(x, y):
         time.sleep(0.0012)
@@ -573,26 +573,26 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 请把下面的Student对象的gender字段对外隐藏起来，用get_gender()和set_gender()代替，并检查参数有效性：
 
     class Student(object):
-    def __init__(self, name, gender):
-        self.name = name
-        self.gender = gender
+        def __init__(self, name, gender):
+            self.name = name
+            self.gender = gender
     
 修改后：
     
     class Student(object):
-    def __init__(self, name, gender):
-        self.name = name
-        self.__gender = gender
-
-    def get_gender(self):
-        return self.__gender
-
-    def set_gender(self, gender):
-        if gender == 'male' or gender == 'female':
-        # if gender in ('male','female'):
+        def __init__(self, name, gender):
+            self.name = name
             self.__gender = gender
-        else:
-            raise ValueError('bad gender')
+
+        def get_gender(self):
+            return self.__gender
+
+        def set_gender(self, gender):
+            if gender == 'male' or gender == 'female':
+            # if gender in ('male','female'):
+                self.__gender = gender
+            else:
+                raise ValueError('bad gender')
     
     # 测试
     bart = Student('Bart', 'male')
@@ -651,7 +651,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
         @property
         def resolution(self):
             return self._width * self._height
- 
+    
     # 测试
     s = Screen()
     s.width = 1024
@@ -677,7 +677,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             self.gender = gender
 
 改造后，只允许通过枚举类设置gender
-    
+
     @unique
     class Gender(Enum):
         Male = 'male'   #并不一定非要用数字
@@ -698,7 +698,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
                 self._gender = value
             else:
                 raise TypeError('bad type gender')
-
+    
     # 测试
     bart = Student('Bart', Gender.Male)
     print('bart.gender =', bart.gender)
@@ -973,10 +973,10 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
                 result.append(os.path.join('%s' % dir, os.path.relpath(x)))
         return result
         
-     # 测试
+    # 测试
     for i in find_file_with_name('test8'):
         print(i)
-        
+    
 -->
     
     ./test8_IO编程_序列化.py
@@ -1002,7 +1002,9 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     s2 = {"name": "小明", "age": 20}
 
 ## 正则表达式
-请尝试写一个验证Email地址的正则表达式。版本一应该可以验证出类似的Email：`someone@gmail.com` `bill.gates@microsoft.com`
+请尝试写一个验证Email地址的正则表达式。版本一应该可以验证出类似的Email：</br>
+`someone@gmail.com`</br>
+`bill.gates@microsoft.com`
     
     import re
 
@@ -1021,7 +1023,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     print('is_valid_email(\'bill.gates@microsoft.com\') = %s' % is_valid_email('bill.gates@microsoft.com'))
     print('is_valid_email(\'bob#example.com\') = %s' % is_valid_email('bob#example.com'))
     print('is_valid_email(\'mr-bob@example.com\') = %s' % is_valid_email('mr-bob@example.com'))
-    
+
 -->
 
     is_valid_email('1234567890@qq.com') = True
@@ -1032,7 +1034,9 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     is_valid_email('mr-bob@example.com') = False
     
 
-版本二可以提取出带名字的Email地址：`<Tom Paris> tom@voyager.org => Tom Paris` `bob@example.com => bob`
+版本二可以提取出带名字的Email地址：</br>
+`<Tom Paris> tom@voyager.org => Tom Paris` </br>
+`bob@example.com => bob`
     
     reg_name_of_email = r'^<([\w\s]+)>[\s]*([0-9a-zA-Z]+[\.\_]?[0-9a-zA-Z]*)@[0-9a-zA-Z\.\-]+\.[a-zA-Z]{2,4}$'
 
@@ -1045,10 +1049,10 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             return m.group(1)
         return None
         
-    # 测试:
+    # 测试: 
     print('name_of_email(\'<Tom Paris> tom@voyager.org\') = %s' % name_of_email('<Tom Paris> tom@voyager.org'))
     print('name_of_email(\'tom@voyager.org\') = %s' % name_of_email('tom@voyager.org'))
-    
+
 -->
     
     name_of_email('<Tom Paris> tom@voyager.org') = Tom Paris
