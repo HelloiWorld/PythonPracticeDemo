@@ -34,7 +34,13 @@
   - [错误处理](#错误处理)
   - [单元测试](#单元测试)
   - [文档测试](#文档测试)
-  
+* [IO编程](#IO编程)
+  - [文件读写](#文件读写)
+  - [操作文件和目录](#操作文件和目录)
+  - [序列化](#序列化)
+* [正则表达式](#正则表达式)
+
+   
 <h2 id="Python基础">Python基础</h2>
 
 #### 字符串和编码
@@ -132,8 +138,7 @@ ax2 + bx + c = 0
                 x2 = (-b - math.sqrt(b * b - 4 * a * c)) / (2 * a)
                 return x1, x2
     
-测试：
-    
+    # 测试   
     print('quadratic(1.5, 3, 1) =', quadratic(1.5, 3, 1))
     print('quadratic(0, 2, 1) =', quadratic(0, 2, 1))
     print('quadratic(1, 2, 2) =', quadratic(1, 2, 2))
@@ -155,8 +160,7 @@ ax2 + bx + c = 0
         product = product * number
     return product
     
-测试：
-
+    # 测试
     print('product(5) =', product(5))
     print('product(5, 6) =', product(5, 6))
     print('product(5, 6, 7) =', product(5, 6, 7))
@@ -181,8 +185,7 @@ ax2 + bx + c = 0
     print(a, '-->', c)
     move(n-1,b,a,c) #将过渡柱子B上n-1个圆盘B移动到目标柱子C
     
-测试：
-
+    # 测试
     # 期待输出:
     # A --> C
     # A --> B
@@ -216,7 +219,7 @@ ax2 + bx + c = 0
             s = s[:-1]
         return s
     
-    #利用递归思路的写法
+    # 利用递归思路的写法
     def trim2(s):
         if s == '':
             return s
@@ -226,8 +229,7 @@ ax2 + bx + c = 0
             return trim2(s[:-1])
         return s
     
-测试：
-
+    # 测试
     print('trim(\'hello  \') =', trim('hello  '))
     print('trim(\'  hello\') =', trim('  hello'))
     print('trim(\'  hello  \') =', trim('  hello  '))
@@ -248,19 +250,18 @@ ax2 + bx + c = 0
 请使用迭代查找一个list中最小和最大值，并返回一个tuple：
     
     def findMinAndMax(L):
-    if len(L) > 0:
-        min = L[0]
-        max = L[0]
-        for v in L:
-            if v < min:
-                min = v
-            if v > max:
-                max = v
-        return min, max
-    return (None, None)
+        if len(L) > 0:
+            min = L[0]
+            max = L[0]
+            for v in L:
+                if v < min:
+                    min = v
+                if v > max:
+                    max = v
+            return min, max
+        return (None, None)
     
-测试：
-
+    # 测试
     print('findMinAndMax([]) =', findMinAndMax([]))
     print('findMinAndMax([7]) =', findMinAndMax([7]))
     print('findMinAndMax([7, 1]) =', findMinAndMax([7, 1]))
@@ -279,6 +280,10 @@ ax2 + bx + c = 0
     L1 = ['Hello', 'World', 18, 'Apple', None]
     L2 = [s.lower() for s in L1 if isinstance(s, str)]
     print('lower([\'Hello\', \'World\', 18, \'Apple\', None]) =' , L2)
+    
+-->
+    
+    lower(['Hello', 'World', 18, 'Apple', None]) = ['hello', 'world', 'apple']
 
 #### 生成器
 > 包含`yield`关键字的函数表明是一个generator，在调用`next()`时遇到`yield`会中断，在下次运行时再从上次返回的`yield`处继续执行
@@ -310,7 +315,7 @@ ax2 + bx + c = 0
             L = [L[i - 1] + L[i] for i in range(len(L))]]
             #print('after triangles: L =', L)
         
-    #不使用列表生成式的写法:
+    # 不使用列表生成式的写法:
     def triangles2():
         ret = [1]
         while True:
@@ -320,8 +325,7 @@ ax2 + bx + c = 0
             ret.append(1)
             pre = ret[:]
 
- 测试：
- 
+    # 测试
     # 期待输出:
     # [1]
     # [1, 1]
@@ -374,9 +378,8 @@ ax2 + bx + c = 0
     def normalize(name):
         return name.title()
 
-测试：
-
-    L1 = ['adam', 'LISA', 'barT']
+    # 测试
+    L1 = ['adam', 'LISA', 'barT']
     L2 = list(map(normalize, L1))
     print(L2)
     
@@ -394,8 +397,7 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
         return reduce(fn, L)
     #    return reduce(lambda x, y: x * y, L)
     
-测试：
-
+    # 测试
     print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9])) 
     
 -->
@@ -415,8 +417,7 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
             return reduce(fn, map(int, s))
         return reduce(fn, map(int, s[:dot])) + fd(reduce(fn, map(int, s[dot+1:])))
 
-测试：
-
+    # 测试
     print('str2float(\'123.456\') =', str2float('123.456'))
     
 -->
@@ -431,8 +432,7 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
         str2int = int(int2str[::-1])
         return n == str2int
     
-测试：
-
+    # 测试
     output = filter(is_palindrome, range(1, 1000))
     print('1~1000:', list(output))
 
@@ -452,8 +452,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     def by_score(t):
         return t[:][-1]
 
-测试：
-
+    # 测试
     L2 = sorted(L, key=by_name)
     print('按名字排序:', L2)
     L3 = sorted(L, key=by_score, reverse=True)
@@ -467,7 +466,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 #### 返回函数
 利用闭包返回一个计数器函数，每次调用它返回递增整数：
     
-    #使用生成器迭代
+    # 使用生成器迭代
     def createCounter():
         def g():
             n = 1
@@ -479,27 +478,26 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             return next(it)
         return counter
 
-    ##python引用变量的顺序： 当前作用域局部变量->外层作用域变量->当前模块中的全局变量->python内置变量
-    ##内层函数能访问外层函数的变量，但不能修改它的指向
+    ## python引用变量的顺序： 当前作用域局部变量->外层作用域变量->当前模块中的全局变量->python内置变量
+    ## 内层函数能访问外层函数的变量，但不能修改它的指向
     def createCounter2():
         count = [0]
         def counter():
-            count[0] += 1   #用list存储，这样地址不变就可以修改其内容了
+            count[0] += 1   # 用list存储，这样地址不变就可以修改其内容了
             return count[0]
         return counter
 
-    ##nonlocal关键字用来在函数或其他作用域中修改外层(非全局)变量
-    ##global关键字则是用于修改全局变量
+    ## nonlocal关键字用来在函数或其他作用域中修改外层(非全局)变量
+    ## global关键字则是用于修改全局变量
     def createCounter3():
         count = 0
         def counter():
-            nonlocal count  #允许修改外部变量，在我的理解相当于__block关键字
+            nonlocal count  # 允许修改外部变量，在我的理解相当于__block关键字
             count += 1
             return count
         return counter
 
-测试：
-
+    # 测试
     counterA = createCounter()
     print('counterA: ', counterA(), counterA(), counterA(), counterA(), counterA())
 
@@ -547,8 +545,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             return fn(*args, **kw)
         return wrapper
     
-测试：
-    
+    # 测试
     @metric
     def fast(x, y):
         time.sleep(0.0012)
@@ -592,13 +589,12 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 
     def set_gender(self, gender):
         if gender == 'male' or gender == 'female':
-        #if gender in ('male','female'):
+        # if gender in ('male','female'):
             self.__gender = gender
         else:
             raise ValueError('bad gender')
     
-测试：
-
+    # 测试
     bart = Student('Bart', 'male')
     print('bart.get_gender() =', bart.get_gender())
     bart.set_gender('female')
@@ -613,14 +609,12 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 为了统计学生人数，可以给Student类增加一个类属性，每创建一个实例，该属性自动增加：
 
     class Student(object):
-    count = 0 #这里是类变量，是静态变量(只初始化一次，然后存在内存中便于修改访问)，类似于oc中的static关键字
+        count = 0 # 这里是类变量，是静态变量(只初始化一次，然后存在内存中便于修改访问)，类似于oc中的static关键字
+        def __init__(self, name):
+            self.name = name
+            Student.count += 1 # 修改时必须修改类属性
     
-    def __init__(self, name):
-        self.name = name
-        Student.count += 1 #修改时必须修改类属性
-    
-测试：
-    
+    # 测试
     print('Student.count =', Student.count)
     bart = Student('Bart')
     print('Student.count =', Student.count)
@@ -638,28 +632,27 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 请利用@property给一个Screen对象加上width和height属性，以及一个只读属性resolution：
     
     class Screen(object):
-    @property
-    def width(self):
-        return self._width
+        @property
+        def width(self):
+            return self._width
 
-    @width.setter
-    def width(self, value):
-        self._width = value
+        @width.setter
+        def width(self, value):
+            self._width = value
 
-    @property
-    def height(self):
-        return self._height
+        @property
+        def height(self):
+            return self._height
     
-    @height.setter
-    def height(self, value):
-        self._height = value
+        @height.setter
+        def height(self, value):
+            self._height = value
 
-    @property
-    def resolution(self):
-        return self._width * self._height
+        @property
+        def resolution(self):
+            return self._width * self._height
  
- 测试：
-    
+    # 测试
     s = Screen()
     s.width = 1024
     s.height = 768
@@ -675,8 +668,8 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     from enum import Enum, unique
     
     class Gender(Enum):
-    Male = 0
-    Female = 1
+        Male = 0
+        Female = 1
 
     class Student(object):
         def __init__(self, name, gender):
@@ -695,19 +688,18 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             self.name = name
             self.gender = gender
 
-    @property
-    def gender(self):
-        return self._gender
+        @property
+        def gender(self):
+            return self._gender
 
-    @gender.setter
-    def gender(self, value):
-        if isinstance(value, Gender):
-            self._gender = value
-        else:
-            raise TypeError('bad type gender')
+        @gender.setter
+        def gender(self, value):
+            if isinstance(value, Gender):
+                self._gender = value
+            else:
+                raise TypeError('bad type gender')
 
-测试：
-    
+    # 测试
     bart = Student('Bart', Gender.Male)
     print('bart.gender =', bart.gender)
     print('bart.gender.value =', bart.gender.value)
@@ -754,31 +746,31 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
  说明是将7.6转成int类型出错，修改`str2num():`方法即可
  
     def str2num(s):
-    try:
-        return int(s)
-    except ValueError as e:
         try:
-            return float(s)
-        except:
-            raise ValueError('not a number')
+            return int(s)
+        except ValueError as e:
+            try:
+                return float(s)
+            except:
+                raise ValueError('not a number')
  
 #### 单元测试
 对Student类编写单元测试，结果发现测试不通过，请修改Student类，让测试通过：
 
     import unittest
 
-    class Student(object):
-        def __init__(self, name, score):
-            self.name = name
-            self.score = score
-        def get_grade(self):
-            if self.score >= 60:
-                return 'B'
-            if self.score >= 80:
-                return 'A'
-            return 'C'
+    #class Student(object):
+    #    def __init__(self, name, score):
+    #        self.name = name
+    #        self.score = score
+    #    def get_grade(self):
+    #        if self.score >= 60:
+    #            return 'B'
+    #        if self.score >= 80:
+    #            return 'A'
+    #        return 'C'
 
-修改后：
+    # 修改后
     
     class Student(object):
         def __init__(self, name, score):
@@ -795,35 +787,33 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             else:
                 return 'C'
 
-测试：
-
+    # 测试
     class TestStudent(unittest.TestCase):
+        def test_80_to_100(self):
+            s1 = Student('Bart', 80)
+            s2 = Student('Lisa', 100)
+            self.assertEqual(s1.get_grade(), 'A')
+            self.assertEqual(s2.get_grade(), 'A')
     
-    def test_80_to_100(self):
-        s1 = Student('Bart', 80)
-        s2 = Student('Lisa', 100)
-        self.assertEqual(s1.get_grade(), 'A')
-        self.assertEqual(s2.get_grade(), 'A')
+        def test_60_to_80(self):
+            s1 = Student('Bart', 60)
+            s2 = Student('Lisa', 79)
+            self.assertEqual(s1.get_grade(), 'B')
+            self.assertEqual(s2.get_grade(), 'B')
     
-    def test_60_to_80(self):
-        s1 = Student('Bart', 60)
-        s2 = Student('Lisa', 79)
-        self.assertEqual(s1.get_grade(), 'B')
-        self.assertEqual(s2.get_grade(), 'B')
+        def test_0_to_60(self):
+            s1 = Student('Bart', 0)
+            s2 = Student('Lisa', 59)
+            self.assertEqual(s1.get_grade(), 'C')
+            self.assertEqual(s2.get_grade(), 'C')
     
-    def test_0_to_60(self):
-        s1 = Student('Bart', 0)
-        s2 = Student('Lisa', 59)
-        self.assertEqual(s1.get_grade(), 'C')
-        self.assertEqual(s2.get_grade(), 'C')
-    
-    def test_invalid(self):
-        s1 = Student('Bart', -1)
-        s2 = Student('Lisa', 101)
-        with self.assertRaises(ValueError):
-            s1.get_grade()
-        with self.assertRaises(ValueError):
-            s2.get_grade()
+        def test_invalid(self):
+            s1 = Student('Bart', -1)
+            s2 = Student('Lisa', 101)
+            with self.assertRaises(ValueError):
+                s1.get_grade()
+            with self.assertRaises(ValueError):
+                s2.get_grade()
 
     if __name__ == '__main__':
         unittest.main()
@@ -840,23 +830,23 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 对函数fact(n)编写doctest并执行：
 
     def fact(n):
-    '''
-    Calculate 1*2*...*n
+        '''
+        Calculate 1*2*...*n
         
-    >>> fact(1)
-    1
-    >>> fact(10)
-    3628800
-    >>> fact(-1)
-    Traceback (most recent call last):
-        ...
-    ValueError
-    '''
-    if n < 1:
-        raise ValueError()
-    if n == 1:
-        return 1
-    return n * fact(n - 1)
+        >>> fact(1)
+        1
+        >>> fact(10)
+        3628800
+        >>> fact(-1)
+        Traceback (most recent call last):
+            ...
+        ValueError
+        '''
+        if n < 1:
+            raise ValueError()
+        if n == 1:
+            return 1
+        return n * fact(n - 1)
     
     if __name__ == '__main__':
         import doctest
@@ -897,5 +887,172 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     1 items had failures:
         1 of   3 in __main__.fact
     ***Test Failed*** 1 failures.
+
+<h2 id="IO编程">IO编程</h2>
+
+#### 文件读写
+请将本地一个文本文件读为一个str并打印出来：
+
+    # 绝对路径
+    fpath = r'/Users/pengzk/Desktop/PythonPracticeDemo/practice/test8_IO编程_文件读写.py'
+    # 相对路径
+    # fpath = r'./test8_IO编程_文件读写.py'
+    
+    with open(fpath, 'r') as f:
+    s = f.read()
+    print(s)
+    
+-->
+
+    #!/usr/bin/env python3
+    # -*- coding: utf-8 -*-
+
+    # IO编程->文件读写
+    # 练习
+    # 请将本地一个文本文件读为一个str并打印出来：
+
+    # 绝对路径
+    fpath = r'/Users/pengzk/Desktop/PythonPracticeDemo/practice/test8_IO编程_文件读写.py'
+    # 相对路径
+    # fpath = r'./test8_IO编程_文件读写.py'
+
+    with open(fpath, 'r') as f:
+        s = f.read()
+        print(s)
+
+#### 操作文件和目录
+1.利用os模块编写一个能实现dir -l输出的程序。
+
+    import os
+    from datetime import datetime
+
+    def output_dir_detail(pwd = os.path.abspath('.')):
+        for i in os.listdir(pwd):
+            fname = i
+            fsize = os.path.getsize(i)
+            fmtime = str(datetime.fromtimestamp(os.path.getmtime(i))).split('.')[0]
+            flag = '/' if os.path.isdir(i) else ''
+            print('%10d   %s   %s%s' % (fsize, fmtime, fname, flag))
+    
+    # 测试
+    output_dir_detail()
+    
+-->
+
+    6148   2018-02-28 18:41:58   .DS_Store
+    1048   2018-02-25 18:53:05   test1_基础.py
+    2477   2018-02-25 18:52:57   test2_函数.py
+     820   2018-02-26 10:52:36   test3_高级特性_切片.py
+    1740   2018-02-26 10:51:34   test3_高级特性_生成器.py
+     615   2018-02-26 10:53:04   test3_高级特性_迭代.py
+     249   2018-02-27 10:01:41   test4_函数式编程_匿名函数.py
+     720   2018-02-27 10:01:33   test4_函数式编程_装饰器.py
+    1427   2018-02-26 10:52:27   test4_函数式编程_返回函数.py
+    2106   2018-02-27 16:29:25   test4_函数式编程_高阶函数.py
+     657   2018-02-27 10:02:01   test5_面向对象编程_实例属性和类属性.py
+     908   2018-02-26 18:28:30   test5_面向对象编程_访问限制.py
+     683   2018-02-27 12:10:18   test6_面向对象高级编程_使用@property.py
+    1015   2018-02-27 15:20:26   test6_面向对象高级编程_使用枚举类.py
+    1790   2018-02-28 11:17:43   test7_错误调试和测试_单元测试.py
+     503   2018-02-28 11:07:53   test7_错误调试和测试_文档测试.py
+     656   2018-02-28 11:02:13   test7_错误调试和测试_错误处理.py
+     914   2018-03-02 10:10:55   test8_IO编程_序列化.py
+    1160   2018-02-28 18:49:26   test8_IO编程_操作文件和目录.py
+     376   2018-02-28 18:50:24   test8_IO编程_文件读写.py
+     
+2.编写一个程序，能在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，并打印出相对路径。
+
+    import os
+
+    def find_file_with_name(name, dir = '.', result = []):
+        for x in os.listdir(dir):
+            if os.path.isdir(x):
+                find_file_with_name(name, os.path.join('%s' % dir, os.path.relpath(x)))
+                continue
+            if name in x: #加了条件os.path.isfile(x)就搜不到？？？
+                result.append(os.path.join('%s' % dir, os.path.relpath(x)))
+        return result
+        
+     # 测试
+    for i in find_file_with_name('test8'):
+        print(i)
+        
+-->
+    
+    ./test8_IO编程_序列化.py
+    ./test8_IO编程_操作文件和目录.py
+    ./test8_IO编程_文件读写.py
+
+#### 序列化
+对中文进行JSON序列化时，json.dumps()提供了一个ensure_ascii参数，观察该参数对结果的影响：
+
+    import json
+
+    obj = dict(name='小明', age=20)
+    s = json.dumps(obj, ensure_ascii=True)  #默认，中文会转成Unicode编码
+    s2 = json.dumps(obj, ensure_ascii=False)
+    
+    # 测试
+    print('s = %s' % s)
+    print('s2 = %s' % s2)
+    
+-->
+
+    s = {"name": "\u5c0f\u660e", "age": 20}
+    s2 = {"name": "小明", "age": 20}
+
+## 正则表达式
+请尝试写一个验证Email地址的正则表达式。版本一应该可以验证出类似的Email：`someone@gmail.com` `bill.gates@microsoft.com`
+    
+    import re
+
+    reg_email = r'^([0-9a-zA-Z]+[\.\_]?[0-9a-zA-Z]*)@[0-9a-zA-Z\.\-]+\.[a-zA-Z]{2,4}$'
+
+    def is_valid_email(addr):
+        m = re.compile(reg_email)
+        if m.match(addr) is None:
+            return False
+        return True
+
+    # 测试:
+    print('is_valid_email(\'1234567890@qq.com\') = %s' % is_valid_email('1234567890@qq.com'))
+    print('is_valid_email(\'someone@163.com\') = %s' % is_valid_email('someone@163.com'))
+    print('is_valid_email(\'someone@gmail.com\') = %s' % is_valid_email('someone@gmail.com'))
+    print('is_valid_email(\'bill.gates@microsoft.com\') = %s' % is_valid_email('bill.gates@microsoft.com'))
+    print('is_valid_email(\'bob#example.com\') = %s' % is_valid_email('bob#example.com'))
+    print('is_valid_email(\'mr-bob@example.com\') = %s' % is_valid_email('mr-bob@example.com'))
+    
+-->
+
+    is_valid_email('1234567890@qq.com') = True
+    is_valid_email('someone@163.com') = True
+    is_valid_email('someone@gmail.com') = True
+    is_valid_email('bill.gates@microsoft.com') = True
+    is_valid_email('bob#example.com') = False
+    is_valid_email('mr-bob@example.com') = False
+    
+
+版本二可以提取出带名字的Email地址：`<Tom Paris> tom@voyager.org => Tom Paris` `bob@example.com => bob`
+    
+    reg_name_of_email = r'^<([\w\s]+)>[\s]*([0-9a-zA-Z]+[\.\_]?[0-9a-zA-Z]*)@[0-9a-zA-Z\.\-]+\.[a-zA-Z]{2,4}$'
+
+    def name_of_email(addr):
+        m = re.match(reg_email, addr)
+        if m:
+            return m.group(1)
+        m = re.match(reg_name_of_email, addr)
+        if m:
+            return m.group(1)
+        return None
+        
+    # 测试:
+    print('name_of_email(\'<Tom Paris> tom@voyager.org\') = %s' % name_of_email('<Tom Paris> tom@voyager.org'))
+    print('name_of_email(\'tom@voyager.org\') = %s' % name_of_email('tom@voyager.org'))
+    
+-->
+    
+    name_of_email('<Tom Paris> tom@voyager.org') = Tom Paris
+    name_of_email('tom@voyager.org') = tom
+    
 
 ### to be continued...
