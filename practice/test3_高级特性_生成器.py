@@ -28,7 +28,7 @@ def triangles():
     while True:
         yield L
         #print('previous yield: L =', L)
-        L.append(0)
+        L = L + [0,] # L.append(0)这样写会导致输出每一项都多一个0
         #print('after append(0): L =', L)
         #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
         #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])

@@ -1,4 +1,4 @@
-> 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)</br>
+> 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)<br/>
   学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
 
 # 目录
@@ -39,6 +39,16 @@
   - [操作文件和目录](#操作文件和目录)
   - [序列化](#序列化)
 * [正则表达式](#正则表达式)
+* [常用内建模块](#常用内建模块)
+  - [datetime](#datetime)
+  - [base64](#base64)
+  - [struct](#struct)
+  - [hashlib](#hashlib)
+  - [hmac](#hmac)
+  - [itertools](#itertools)
+  - [urllib](#urllib)
+  - [XML](#XML)
+  - [HTMLParser](#HTMLParser)
 
    
 <h2 id="Python基础">Python基础</h2>
@@ -110,7 +120,7 @@
 #### 定义函数
 请定义一个函数quadratic(a, b, c)，接收3个参数，返回一元二次方程：
 ax2 + bx + c = 0
-的两个解。</br>
+的两个解。<br>
 提示：计算平方根可以调用`math.sqrt()`函数：    
     
     import math
@@ -367,12 +377,12 @@ ax2 + bx + c = 0
 ## 函数式编程
 ### 高阶函数
 #### map/reduce
-> map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</br>
+> map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。<br>
   reduce把一个函数作用在一个序列[x1, x2, x3, ...]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：
   `reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)`
 
 利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：['adam', 'LISA', 'barT']，输出：['Adam', 'Lisa', 'Bart']：
-> `lower()`、`upper()`、`capitalize()`、`title()`、`swapcase()`这几个方法分别用来将字符串转换为小写、大写字符串、将字符串首字母变为大写、将每个首字母变为大写以及大小写互换，这几个方法都是生成新字符串，并不对原字符串做任何修改</br>
+> `lower()`、`upper()`、`capitalize()`、`title()`、`swapcase()`这几个方法分别用来将字符串转换为小写、大写字符串、将字符串首字母变为大写、将每个首字母变为大写以及大小写互换，这几个方法都是生成新字符串，并不对原字符串做任何修改<br/>
   `replace()`用来替换字符串中指定字符或子字符串的所有重复出现，每次只能替换一个字符或字符串。该方法并不修改原字符串，而是返回一个新字符串。
     
     def normalize(name):
@@ -443,7 +453,7 @@ Python提供的sum()函数可以接受一个list并求和，请编写一个prod(
 #### sorted
 假设我们用一组tuple表示学生名字和成绩：
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
-请用sorted()对上述列表分别按名字排序：</br>
+请用sorted()对上述列表分别按名字排序：<br>
 再按成绩从高到低排序：
 
     L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
@@ -544,8 +554,8 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             print('%s executed in %s ms' % (fn.__name__, runtime * 1000))
             return fn(*args, **kw)
         return wrapper
-    
-    # 测试
+        
+    # 测试
     @metric
     def fast(x, y):
         time.sleep(0.0012)
@@ -593,7 +603,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
                 self.__gender = gender
             else:
                 raise ValueError('bad gender')
-    
+
     # 测试
     bart = Student('Bart', 'male')
     print('bart.get_gender() =', bart.get_gender())
@@ -630,7 +640,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 ## 面向对象高级编程
 #### 使用@property
 请利用@property给一个Screen对象加上width和height属性，以及一个只读属性resolution：
-    
+
     class Screen(object):
         @property
         def width(self):
@@ -771,7 +781,6 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     #        return 'C'
 
     # 修改后
-    
     class Student(object):
         def __init__(self, name, score):
             self.name = name
@@ -933,9 +942,9 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
             fmtime = str(datetime.fromtimestamp(os.path.getmtime(i))).split('.')[0]
             flag = '/' if os.path.isdir(i) else ''
             print('%10d   %s   %s%s' % (fsize, fmtime, fname, flag))
-    
-    # 测试
-    output_dir_detail()
+
+    # 测试
+    output_dir_detail()
     
 -->
 
@@ -991,7 +1000,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     obj = dict(name='小明', age=20)
     s = json.dumps(obj, ensure_ascii=True)  #默认，中文会转成Unicode编码
     s2 = json.dumps(obj, ensure_ascii=False)
-    
+
     # 测试
     print('s = %s' % s)
     print('s2 = %s' % s2)
@@ -1002,8 +1011,8 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     s2 = {"name": "小明", "age": 20}
 
 ## 正则表达式
-请尝试写一个验证Email地址的正则表达式。版本一应该可以验证出类似的Email：</br>
-`someone@gmail.com`</br>
+请尝试写一个验证Email地址的正则表达式。版本一应该可以验证出类似的Email：<br>
+`someone@gmail.com`<br>
 `bill.gates@microsoft.com`
     
     import re
@@ -1034,8 +1043,8 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     is_valid_email('mr-bob@example.com') = False
     
 
-版本二可以提取出带名字的Email地址：</br>
-`<Tom Paris> tom@voyager.org => Tom Paris` </br>
+版本二可以提取出带名字的Email地址：<br/>
+`<Tom Paris> tom@voyager.org => Tom Paris` <br/>
 `bob@example.com => bob`
     
     reg_name_of_email = r'^<([\w\s]+)>[\s]*([0-9a-zA-Z]+[\.\_]?[0-9a-zA-Z]*)@[0-9a-zA-Z\.\-]+\.[a-zA-Z]{2,4}$'
@@ -1048,7 +1057,7 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
         if m:
             return m.group(1)
         return None
-        
+           
     # 测试: 
     print('name_of_email(\'<Tom Paris> tom@voyager.org\') = %s' % name_of_email('<Tom Paris> tom@voyager.org'))
     print('name_of_email(\'tom@voyager.org\') = %s' % name_of_email('tom@voyager.org'))
@@ -1058,5 +1067,434 @@ L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
     name_of_email('<Tom Paris> tom@voyager.org') = Tom Paris
     name_of_email('tom@voyager.org') = tom
     
+    
+## 常用内建模块
+#### datetime
+假设你获取了用户输入的日期和时间如2015-1-21 9:01:30，以及一个时区信息如UTC+5:00，均是str，请编写一个函数将其转换为timestamp：
+    
+    import re
+    from datetime import datetime, timezone, timedelta
+
+    def to_timestamp(dt_str, tz_str):
+        m_dt = re.match(r'\d{4}-\d{1,2}-\d{1,2}\s+\d{1,2}:\d{1,2}:\d{1,2}', dt_str) # 没判断时间超过60的情况，太长了
+        if m_dt is None:
+            raise AttributeError('bad arg dt_str')
+        m_tz = re.match(r'UTC([+-])(\d+):([0-9]{2})', tz_str)
+        if m_tz is None:
+            raise AttributeError('bad arg tz_str')
+        dt = datetime.strptime(dt_str, '%Y-%m-%d %H:%M:%S')  # 格式化输入字符串
+        symbol = m_tz.group(1)
+        hour = int(m_tz.group(2))
+        hour_int = int(symbol + str(hour))
+        minute = int(m_tz.group(3))
+        minute_int = int(symbol + str(minute))
+        tz_utc = timezone(timedelta(hours=hour_int, minutes=minute_int)) # 创建时区
+        dt_utc = dt.replace(tzinfo=tz_utc)  # 设置为指定UTC时间
+        return dt_utc.timestamp()  # 把datetime转换为timestamp
+
+    # 测试:
+    t1 = to_timestamp('2015-6-1 08:10:30', 'UTC+7:00')
+    assert t1 == 1433121030.0, t1
+
+    t2 = to_timestamp('2015-5-31 16:10:30', 'UTC-09:00')
+    assert t2 == 1433121030.0, t2
+
+    print('ok')
+    
+#### base64
+请写一个能处理去掉=的base64解码函数：
+
+    import base64
+
+    def safe_base64_decode(s):
+        while len(s) % 4 != 0:
+            # python3中必须要对类型作判断 https://thief.one/2017/04/18/1/
+            if isinstance(s, bytes):
+                s = s + b'='
+            else:
+                s = s + '='
+        return base64.b64decode(s)
+
+    # 测试:
+    assert b'abcd' == safe_base64_decode(b'YWJjZA=='), safe_base64_decode('YWJjZA==')
+    assert b'abcd' == safe_base64_decode(b'YWJjZA'), safe_base64_decode('YWJjZA')
+    print('ok')
+    
+#### struct
+请编写一个bmpinfo.py，可以检查任意文件是否是位图文件，如果是，打印出图片大小和颜色数。
+
+    import base64, struct
+
+    bmp_data = base64.b64decode('Qk1oAgAAAAAAADYAAAAoAAAAHAAAAAoAAAABABAAAAAAADICAAASCwAAEgsAAAAAAAAAAAAA/3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9/AHwAfAB8AHwAfAB8AHwAfP9//3//fwB8AHwAfAB8/3//f/9/AHwAfAB8AHz/f/9//3//f/9//38AfAB8AHwAfAB8AHwAfAB8AHz/f/9//38AfAB8/3//f/9//3//fwB8AHz/f/9//3//f/9//3//f/9/AHwAfP9//3//f/9/AHwAfP9//3//fwB8AHz/f/9//3//f/9/AHwAfP9//3//f/9//3//f/9//38AfAB8AHwAfAB8AHwAfP9//3//f/9/AHwAfP9//3//f/9//38AfAB8/3//f/9//3//f/9//3//fwB8AHwAfAB8AHwAfAB8/3//f/9//38AfAB8/3//f/9//3//fwB8AHz/f/9//3//f/9//3//f/9/AHwAfP9//3//f/9/AHwAfP9//3//fwB8AHz/f/9/AHz/f/9/AHwAfP9//38AfP9//3//f/9/AHwAfAB8AHwAfAB8AHwAfAB8/3//f/9/AHwAfP9//38AfAB8AHwAfAB8AHwAfAB8/3//f/9//38AfAB8AHwAfAB8AHwAfAB8/3//f/9/AHwAfAB8AHz/fwB8AHwAfAB8AHwAfAB8AHz/f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//3//f/9//38AAA==')
+
+    def bmp_info(data):
+        head_data = data[:30]
+        info = struct.unpack('<ccIIIIIIHH', head_data)
+        is_windows_bmp = info[0] == b'B' and info[1] == b'M'
+        width = info[-4] if is_windows_bmp else 0
+        height = info[-3] if is_windows_bmp else 0
+        color = info[-1] if is_windows_bmp else 0
+
+        return {
+            'width': width,
+            'height': height,
+            'color': color
+        }
+
+    # 测试
+    bi = bmp_info(bmp_data)
+    assert bi['width'] == 28
+    assert bi['height'] == 10
+    assert bi['color'] == 16
+    print('ok')
+
+#### hashlib
+根据用户输入的口令，计算出存储在数据库中的MD5口令：
+
+    import hashlib
+
+    def calc_md5(password):
+        return hashlib.md5(password.encode('utf-8')).hexdigest()
+
+    # 设计一个验证用户登录的函数，根据用户输入的口令是否正确，返回True或False：
+    db = {
+        'michael': 'e10adc3949ba59abbe56e057f20f883e',
+        'bob': '878ef96e86145580c38c87f0410ad153',
+        'alice': '99b1c2188db85afee403b1536010c2c9'
+    }
+
+    def login(user, password):
+        if user in db:
+            return db[user] == calc_md5(password)
+        return False
+
+    # 测试:
+    assert login('michael', '123456')
+    assert login('bob', 'abc999')
+    assert login('alice', 'alice2008')
+    assert not login('michael', '1234567')
+    assert not login('bob', '123456')
+    assert not login('alice', 'Alice2008')
+    print('ok')
+    
+根据用户输入的登录名和口令模拟用户注册，计算更安全的MD5：
+
+    import hashlib, random
+
+    def get_md5(s):
+        return hashlib.md5(s.encode('utf-8')).hexdigest()
+
+    class User(object):
+        def __init__(self, username, password):
+            self.username = username
+            self.salt = ''.join([chr(random.randint(48, 122)) for i in range(20)])
+            self.password = get_md5(password + self.salt)
+    db = {
+        'michael': User('michael', '123456'),
+        'bob': User('bob', 'abc999'),
+        'alice': User('alice', 'alice2008')
+    }
+
+    def login(username, password):
+        if username in db:
+            user = db[username]
+            return user.password == get_md5(password + user.salt)
+        return False
+
+    # 测试:
+    assert login('michael', '123456')
+    assert login('bob', 'abc999')
+    assert login('alice', 'alice2008')
+    assert not login('michael', '1234567')
+    assert not login('bob', '123456')
+    assert not login('alice', 'Alice2008')
+    print('ok')
+    
+#### hmac
+将上一节的salt改为标准的hmac算法，验证用户口令：
+    
+    import hmac, random
+
+    def hmac_md5(key, s):
+        return hmac.new(key.encode('utf-8'), s.encode('utf-8'), 'MD5').hexdigest()
+    
+    class User(object):
+        def __init__(self, username, password):
+            self.username = username
+            self.key = ''.join([chr(random.randint(48, 122)) for i in range(20)])
+            self.password = hmac_md5(self.key, password)
+    
+    db = {
+        'michael': User('michael', '123456'),
+        'bob': User('bob', 'abc999'),
+        'alice': User('alice', 'alice2008')
+    }
+    
+    def login(username, password):
+        user = db[username]
+        return user.password == hmac_md5(user.key, password)
+    
+    # 测试:
+    assert login('michael', '123456')
+    assert login('bob', 'abc999')
+    assert login('alice', 'alice2008')
+    assert not login('michael', '1234567')
+    assert not login('bob', '123456')
+    assert not login('alice', 'Alice2008')
+    print('ok')
+    
+#### itertools
+计算圆周率可以根据公式：<br/>
+利用Python提供的itertools模块，我们来计算这个序列的前N项和：
+    
+    import itertools
+
+    def pi(N):
+        ' 计算pi的值 '
+        # step 1: 创建一个奇数序列: 1, 3, 5, 7, 9, ...
+        odd_numbers_1 = itertools.count(1, 2)
+        # step 2: 取该序列的前N项: 1, 3, 5, 7, 9, ..., 2*N-1.
+        odd_numbers_2 = itertools.takewhile(lambda x: x <= 2 * N - 1, odd_numbers_1)
+        # step 3: 添加正负符号并用4除: 4/1, -4/3, 4/5, -4/7, 4/9, ...
+        # 先想到的方法，利用cycle方法有更好的写法
+        # symbol = -1
+        # def get_odd_number_3(x):
+        #     nonlocal symbol
+        #     symbol = -symbol
+        #     return symbol * 4 / x
+        # odd_numbers_3 = map(get_odd_number_3, odd_numbers_2)
+        symbol_cycles = itertools.cycle([1, -1])
+        odd_numbers_3 = map(lambda x: next(symbol_cycles) * 4 / x, odd_numbers_2)
+        # step 4: 求和:
+        return sum(odd_numbers_3)
+    
+    # 测试:
+    print(pi(10))
+    print(pi(100))
+    print(pi(1000))
+    print(pi(10000))
+    assert 3.04 < pi(10) < 3.05
+    assert 3.13 < pi(100) < 3.14
+    assert 3.140 < pi(1000) < 3.141
+    assert 3.1414 < pi(10000) < 3.1415
+    print('ok')
+    
+-->
+
+    3.0418396189294032
+    3.1315929035585537
+    3.140592653839794
+    3.1414926535900345
+    ok
+    
+#### urllib
+利用urllib读取JSON，然后将JSON解析为Python对象：
+
+    from urllib import request
+    import json
+    
+    def fetch_data(url):
+        req = request.Request(url)
+        with request.urlopen(req) as f:
+            # print('Status:', f.status, f.reason)
+            # for k, v in f.getheaders():
+            #     print('%s: %s' % (k, v))
+            # print('Data:', f.read().decode('utf-8'))
+            data = f.read().decode('utf-8')
+        return json.loads(data)
+    
+    # 测试
+    URL = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20%3D%202151330&format=json'
+    data = fetch_data(URL)
+    print(data)
+    assert data['query']['results']['channel']['location']['city'] == 'Beijing'
+    print('ok')
+    
+-->
+
+    {'query': {'count': 1, 'created': '2018-03-05T10:56:02Z', 'lang': 'en-US', 'results': {'channel': {'units': {'distance': 'mi', 'pressure': 'in', 'speed': 'mph', 'temperature': 'F'}, 'title': 'Yahoo! Weather - Beijing, Beijing, CN', 'link': 'http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2151330/', 'description': 'Yahoo! Weather for Beijing, Beijing, CN', 'language': 'en-us', 'lastBuildDate': 'Mon, 05 Mar 2018 06:56 PM CST', 'ttl': '60', 'location': {'city': 'Beijing', 'country': 'China', 'region': ' Beijing'}, 'wind': {'chill': '34', 'direction': '170', 'speed': '18'}, 'atmosphere': {'humidity': '29', 'pressure': '1023.0', 'rising': '0', 'visibility': '16.1'}, 'astronomy': {'sunrise': '6:41 am', 'sunset': '6:11 pm'}, 'image': {'title': 'Yahoo! Weather', 'width': '142', 'height': '18', 'link': 'http://weather.yahoo.com', 'url': 'http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif'}, 'item': {'title': 'Conditions for Beijing, Beijing, CN at 06:00 PM CST', 'lat': '39.90601', 'long': '116.387909', 'link': 'http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2151330/', 'pubDate': 'Mon, 05 Mar 2018 06:00 PM CST', 'condition': {'code': '32', 'date': 'Mon, 05 Mar 2018 06:00 PM CST', 'temp': '41', 'text': 'Sunny'}, 'forecast': [{'code': '32', 'date': '05 Mar 2018', 'day': 'Mon', 'high': '48', 'low': '21', 'text': 'Sunny'}, {'code': '28', 'date': '06 Mar 2018', 'day': 'Tue', 'high': '42', 'low': '24', 'text': 'Mostly Cloudy'}, {'code': '28', 'date': '07 Mar 2018', 'day': 'Wed', 'high': '44', 'low': '28', 'text': 'Mostly Cloudy'}, {'code': '32', 'date': '08 Mar 2018', 'day': 'Thu', 'high': '46', 'low': '27', 'text': 'Sunny'}, {'code': '32', 'date': '09 Mar 2018', 'day': 'Fri', 'high': '53', 'low': '25', 'text': 'Sunny'}, {'code': '32', 'date': '10 Mar 2018', 'day': 'Sat', 'high': '58', 'low': '28', 'text': 'Sunny'}, {'code': '34', 'date': '11 Mar 2018', 'day': 'Sun', 'high': '54', 'low': '29', 'text': 'Mostly Sunny'}, {'code': '32', 'date': '12 Mar 2018', 'day': 'Mon', 'high': '62', 'low': '34', 'text': 'Sunny'}, {'code': '34', 'date': '13 Mar 2018', 'day': 'Tue', 'high': '66', 'low': '38', 'text': 'Mostly Sunny'}, {'code': '30', 'date': '14 Mar 2018', 'day': 'Wed', 'high': '64', 'low': '41', 'text': 'Partly Cloudy'}], 'description': '<![CDATA[<img src="http://l.yimg.com/a/i/us/we/52/32.gif"/>\n<BR />\n<b>Current Conditions:</b>\n<BR />Sunny\n<BR />\n<BR />\n<b>Forecast:</b>\n<BR /> Mon - Sunny. High: 48Low: 21\n<BR /> Tue - Mostly Cloudy. High: 42Low: 24\n<BR /> Wed - Mostly Cloudy. High: 44Low: 28\n<BR /> Thu - Sunny. High: 46Low: 27\n<BR /> Fri - Sunny. High: 53Low: 25\n<BR />\n<BR />\n<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Country__Country/*https://weather.yahoo.com/country/state/city-2151330/">Full Forecast at Yahoo! Weather</a>\n<BR />\n<BR />\n<BR />\n]]>', 'guid': {'isPermaLink': 'false'}}}}}}
+    ok
+    
+#### XML
+请利用SAX编写程序解析Yahoo的XML格式的天气预报，获取天气预报：<br/>
+https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20%3D%202151330&format=xml<br/>
+参数woeid是城市代码，要查询某个城市代码，可以在weather.yahoo.com搜索城市，浏览器地址栏的URL就包含城市代码。
+    
+    from xml.parsers.expat import ParserCreate
+    from urllib import request
+    
+    class DefaultSaxHandler(object):
+        def __init__(self):
+            self.city = None
+            self.forecast = []
+    
+        def start_element(self, name, attrs):
+            # print('sax:start_element: %s, attrs: %s' % (name, str(attrs)))
+            if 'city' in attrs:
+                self.city = attrs['city']
+            if 'forecast' in name:
+                fc = dict(date=attrs['date'], high=attrs['high'], low=attrs['low'])
+                self.forecast.append(fc)
+    
+        def end_element(self, name):
+            # print('sax:end_element: %s' % name)
+            pass
+    
+        def char_data(self, text):
+            # print('sax:char_data: %s' % text)
+            pass
+    
+    def parseXml(xml_str):
+        # print(xml_str)
+    
+        handler = DefaultSaxHandler()
+        parser = ParserCreate()
+        parser.StartElementHandler = handler.start_element
+        parser.EndElementHandler = handler.end_element
+        parser.CharacterDataHandler = handler.char_data
+        parser.Parse(xml_str)
+    
+        return {
+            'city': handler.city,
+            'forecast': handler.forecast
+        }
+    
+    # 测试:
+    URL = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20%3D%202151330&format=xml'
+    
+    with request.urlopen(URL, timeout=4) as f:
+        data = f.read()
+    
+    result = parseXml(data.decode('utf-8'))
+    print(result)
+    assert result['city'] == 'Beijing'
+    print('ok')
+
+-->
+
+    {'city': 'Beijing', 'forecast': [{'date': '05 Mar 2018', 'high': '48', 'low': '21'}, {'date': '06 Mar 2018', 'high': '42', 'low': '24'}, {'date': '07 Mar 2018', 'high': '44', 'low': '28'}, {'date': '08 Mar 2018', 'high': '46', 'low': '27'}, {'date': '09 Mar 2018', 'high': '53', 'low': '25'}, {'date': '10 Mar 2018', 'high': '58', 'low': '28'}, {'date': '11 Mar 2018', 'high': '54', 'low': '29'}, {'date': '12 Mar 2018', 'high': '62', 'low': '34'}, {'date': '13 Mar 2018', 'high': '66', 'low': '38'}, {'date': '14 Mar 2018', 'high': '64', 'low': '41'}]}
+    ok
+
+#### HTMLParser
+找一个网页，例如https://www.python.org/events/python-events/，用浏览器查看源码并复制，然后尝试解析一下HTML，输出Python官网发布的会议时间、名称和地点。
+
+    from urllib import request
+    from html.parser import HTMLParser
+    from html.entities import name2codepoint
+    
+    def fetch_data(url):
+        req = request.Request(url)
+        with request.urlopen(req) as f:
+            return f.read().decode('utf-8')
+    
+    class MyHTMLParser(HTMLParser):
+        def __init__(self):
+            super(MyHTMLParser, self).__init__()
+            self.flag = ''
+            self.event_info = {}
+            self.event_list = []
+    
+        def handle_starttag(self, tag, attrs):
+            # print('starttag: %s, attrs: %s' % (tag, str(attrs)))
+            if ('class', 'event-title') in attrs:
+                self.flag = 'title'
+            if 'time' == tag:
+                self.flag = 'time'
+            if ('class', 'event-location') in attrs:
+                self.flag = 'location'
+    
+        def handle_endtag(self, tag):
+            # print('</%s>' % tag)
+            # pass
+            self.flag = ''
+    
+        def handle_startendtag(self, tag, attrs):
+            # print('<%s/>' % tag)
+            pass
+    
+        def handle_data(self, data):
+            # print(data)
+            if self.flag in ('title', 'time', 'location'):
+                self.event_info[self.flag] = data
+    
+            if len(self.event_info) == 3:
+                self.event_list.append(self.event_info)
+                self.event_info = {}
+    
+            # if self.flag == 'title':
+            #     self.event_info['title'] = data
+            #     self.flag = 0
+            #
+            # if self.flag == 'time':
+            #     self.event_info['time'] = data
+            #     self.flag = 0
+            #
+            # if self.flag == 'location':
+            #     self.event_info['location'] = data
+            #     self.flag = 0
+            #     self.event_list.append(self.event_info)
+            #     self.event_info = {}
+    
+        def handle_comment(self, data):
+            # print('<!--', data, '-->')
+            pass
+    
+        def handle_entityref(self, name):
+            # print('&%s;' % name)
+            pass
+    
+        def handle_charref(self, name):
+            # print('&#%s;' % name)
+            pass
+    
+        def print_info(self):
+            for n in self.event_list:
+                print('title: %s' % n['title'])
+                print('time: %s' % n['time'])
+                print('location: %s' % n['location'])
+                print('-----------------------------------------------------')
+    
+    # 测试:
+    URL = 'https://www.python.org/events/python-events/'
+    data = fetch_data(URL)
+    # print(data)
+    parser = MyHTMLParser()
+    parser.feed(data)
+    parser.print_info()
+
+-->
+
+    title: PyCon SK 2018
+    time: 09 March – 12 March 
+    location: Bratislava, Slovakia
+    -----------------------------------------------------
+    title: PythonCamp 2018 - Cologne
+    time: 07 April – 09 April 
+    location: GFU Cyrus AG, Am Grauen Stein 27, 51105 Köln, Germany
+    -----------------------------------------------------
+    title: PyCon IT 9
+    time: 19 April – 23 April 
+    location: Hotel Mediterraneo - Lungarno del Tempio, 44, 50121 Firenze FI, Italy
+    -----------------------------------------------------
+    title: PyDays Vienna
+    time: 04 May – 06 May 
+    location: FH Technikum Wien, Hoechstaedtplatz 6, Vienna, Austria
+    -----------------------------------------------------
+    title: GeoPython 2018
+    time: 07 May – 10 May 
+    location: Basel, Switzerland
+    -----------------------------------------------------
+    title: PyCon US 2018
+    time: 09 May – 18 May 
+    location: Cleveland, Ohio, USA
+    -----------------------------------------------------
+    title: PyCon Belarus 2018
+    time: 24 Feb. – 25 Feb. 
+    location: Minsk, Belarus
+    -----------------------------------------------------
+    title: PyCon PH 2018
+    time: 24 Feb. – 26 Feb. 
+    location: Makati City, Metro Manila, Philippines
+    -----------------------------------------------------
 
 ### to be continued...
