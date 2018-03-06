@@ -17,7 +17,7 @@ def fetch_data(url):
 class MyHTMLParser(HTMLParser):
     def __init__(self):
         super(MyHTMLParser, self).__init__()
-        self.flag = ''
+        self.flag = None
         self.event_info = {}
         self.event_list = []
 

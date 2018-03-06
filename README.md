@@ -1,5 +1,4 @@
-> 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)<br/>
-  学习资源: [Crossin的编程教室](http://res.crossincode.com/wechat/index.html)
+> 本demo练习题目来源[廖雪峰老师的Python教程](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)
 
 # 目录
 * [Python基础](#Python基础)
@@ -49,7 +48,18 @@
   - [urllib](#urllib)
   - [XML](#XML)
   - [HTMLParser](#HTMLParser)
-
+* [常用第三方模块](#常用第三方模块)
+* [图形界面](#图形界面)
+* [网络编程](#网络编程)
+  - [TCP编程](#TCP编程)
+  - [UDP编程](#UDP编程)
+* [电子邮件](#电子邮件)
+  - [SMTP发送邮件](#SMTP发送邮件)
+  - [POP3收取邮件](#POP3收取邮件)
+* [访问数据库](#访问数据库)
+  - [使用SQLite](#使用SQLite)
+  - [使用MySQL](#使用MySQL)
+  - [使用SQLAlchemy](#使用SQLAlchemy)
    
 <h2 id="Python基础">Python基础</h2>
 
@@ -318,7 +328,7 @@ ax2 + bx + c = 0
         while True:
             yield L
             #print('previous yield: L =', L)
-            L.append(0)
+            L = L + [0,] # L.append(0)这样写会导致输出每一项都多一个0
             #print('after append(0): L =', L)
             #print('[L[i-1] for i in range(len(L))] =', [L[i - 1] for i in range(len(L))])
             #print('[L[i] for i in range(len(L))] =', [L[i] for i in range(len(L))])
@@ -371,8 +381,6 @@ ax2 + bx + c = 0
     [1, 8, 28, 56, 70, 56, 28, 8, 1]
     [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]
     results = [[1, 0], [1, 1, 0], [1, 2, 1, 0], [1, 3, 3, 1, 0], [1, 4, 6, 4, 1, 0], [1, 5, 10, 10, 5, 1, 0], [1, 6, 15, 20, 15, 6, 1,  0], [1, 7, 21, 35, 35, 21, 7, 1, 0], [1, 8, 28, 56, 70, 56, 28, 8, 1, 0], [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]]
-    
-> 思考：为什么t的打印结果与append到results后显示结果不同?
 
 ## 函数式编程
 ### 高阶函数
@@ -1376,7 +1384,8 @@ https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast
     ok
 
 #### HTMLParser
-找一个网页，例如https://www.python.org/events/python-events/，用浏览器查看源码并复制，然后尝试解析一下HTML，输出Python官网发布的会议时间、名称和地点。
+找一个网页，例如https://www.python.org/events/python-events/ <br/>
+用浏览器查看源码并复制，然后尝试解析一下HTML，输出Python官网发布的会议时间、名称和地点。
 
     from urllib import request
     from html.parser import HTMLParser
@@ -1390,7 +1399,7 @@ https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast
     class MyHTMLParser(HTMLParser):
         def __init__(self):
             super(MyHTMLParser, self).__init__()
-            self.flag = ''
+            self.flag = None
             self.event_info = {}
             self.event_list = []
     
@@ -1496,5 +1505,23 @@ https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast
     time: 24 Feb. – 26 Feb. 
     location: Makati City, Metro Manila, Philippines
     -----------------------------------------------------
+
+## 常用第三方模块
+#### Pillow
+
+## 图形界面
+
+## 网络编程
+#### TCP编程
+#### UDP编程
+
+## 电子邮件
+#### SMTP发送邮件
+#### POP3收取邮件
+
+## 访问数据库
+#### 使用SQLite
+#### 使用MySQL
+#### 使用SQLAlichemy
 
 ### to be continued...
