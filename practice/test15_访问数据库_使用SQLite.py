@@ -7,7 +7,7 @@
 
 import os, sqlite3
 
-db_file = os.path.join(os.path.dirname(__file__), 'test.db')
+db_file = os.path.join(os.path.dirname(__file__), 'test15.db')
 if os.path.isfile(db_file):
     os.remove(db_file)
 
@@ -35,7 +35,7 @@ def get_score_in(low, high):
         return names
 
 # 测试:
-assert get_score_in(80, 94) == ['Adam'], get_score_in(80, 94)
+assert get_score_in(80, 95) == ['Adam'], get_score_in(80, 95)
 assert get_score_in(60, 80) == ['Bart', 'Lisa'], get_score_in(60, 80)
 assert get_score_in(60, 100) == ['Bart', 'Lisa', 'Adam'], get_score_in(60, 100)
 

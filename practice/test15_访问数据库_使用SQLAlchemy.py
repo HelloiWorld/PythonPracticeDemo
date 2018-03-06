@@ -4,45 +4,44 @@
 # 访问数据库->使用SQLAlchemy(orm框架 处理表与对象之间的关系)
 # 用法示例：
 
-from sqlalchemy import Column, String,Integer,Float,create_engine
+from sqlalchemy import Column, String, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # 创建对象的基类:
 Base = declarative_base()
+
+# 定义User对象:
 class User(Base):
     # 表的名字:
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     # 表的结构:
-    id = Column(Integer(), primary_key=True, autoincrement=True)
+    id = Column(String(20), primary_key=True)
     name = Column(String(20))
-    password = Column(String(30))
-    email = Column(String(40),unique=True)
-    score = Column(Integer())
 
-# 初始化数据库连接(echo=True打印操作信息):
-engine = create_engine('mysql+pymysql://root:123456@localhost:3306/test',echo=True)
+# 初始化数据库连接:
+engine = create_engine('mysql+mysqlconnector://root:@localhost:3306/test')
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 
-session=DBSession()
-#查询数据
-user=session.query(User).filter(User.id=='1').one()
-#添加数据
-u1=User(name='jack',password='dadd123',email='jack@email.com',score=32)
-session.add(u1);
-u2=User(name='rose',password='srt2123',email='rose@email.com',score=55)
-session.add(u2)
-u3=User(name='tom',password='t2hkj3',email='tom@email.com',score=11)
-session.add(u3)
+# 创建session对象:
+session = DBSession()
+# 创建新User对象:
+new_user = User(id='5', name='Bob')
+# 添加到session:
+session.add(new_user)
+# 提交即保存到数据库:
 session.commit()
-#删除用户
-u=session.query(User).filter(User.id=='2').one()
-session.delete(u)
-session.commit()
-#修改数据：获取一条数据对象，修改属性并提交即可
-user=session.query(User).filter(User.id=='2').one()
-user.score=99
-session.commit();
-session.close();
+# 关闭session:
+session.close()
+
+# 创建Session:
+session = DBSession()
+# 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:
+user = session.query(User).filter(User.id=='5').one()
+# 打印类型和对象的name属性:
+print('type:', type(user))
+print('name:', user.name)
+# 关闭Session:
+session.close()
