@@ -60,6 +60,12 @@
   - [使用SQLite](#使用sqlite)
   - [使用MySQL](#使用mysql)
   - [使用SQLAlchemy](#使用sqlalchemy)
+* [Web开发](#web开发)
+  - [使用Web框架](#使用web框架)
+  - [使用模板](#使用模板)
+* [异步IO](#异步io)
+  - [async/await](#asyncasait)
+  - [aiohttp](#aiohttp)
    
 
 <h2 id="Python基础">Python基础</h2>
@@ -1573,7 +1579,22 @@ https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast
 #### 使用MySQL
 [示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test15_访问数据库_使用MySQL.py)
 
-#### 使用SQLAlichemy
+#### 使用SQLAlchemy
 [示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test15_访问数据库_使用SQLAlchemy.py)
+
+## Web开发
+#### 使用Web框架
+[示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test16_Web开发_使用Web框架.py)
+
+#### 使用模板
+[示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test16_Web开发_使用模板.py)
+
+## 异步IO
+#### async/await
+[示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test17_异步IO.py)
+
+#### aiohttp
+[示例代码](https://github.com/HelloiWorld/PythonPracticeDemo/blob/master/practice/test17_异步IO_aiohttp.py)
+
 
 ### to be continued...
