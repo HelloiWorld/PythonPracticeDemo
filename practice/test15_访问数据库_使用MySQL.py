@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # 访问数据库->使用MySQL
-# 例子
+# 用法示例：
 
 import mysql.connector
 
